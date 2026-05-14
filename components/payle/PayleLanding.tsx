@@ -7,6 +7,7 @@ import {
   type Variants
 } from "framer-motion";
 import { ComponentType, SVGProps, useEffect, useId, useState } from "react";
+import Image from "next/image";
 import { payleTheme } from "./payleTheme";
 import {
   HeroGlowOrb,
@@ -27,6 +28,7 @@ type SvgIcon = ComponentType<SVGProps<SVGSVGElement>>;
 
 const nav = [
   { href: "#produto", label: "Produto" },
+  { href: "#operacao", label: "Operação" },
   { href: "#integracoes", label: "Integrações" },
   { href: "#recursos", label: "Recursos" },
   { href: "#checkout", label: "Checkout" },
@@ -56,6 +58,33 @@ const faqs: { q: string; a: string }[] = [
     a: "Os planos (Starter, Scale e Enterprise) acompanham o estágio do seu checkout. Valores e limites são alinhados com o time comercial conforme volume, integrações e necessidade de suporte."
   }
 ];
+
+/** Fotos ilustrativas (Unsplash) — substitua por time ou clientes reais quando tiver autorização de uso. */
+const operationGallery: { src: string; alt: string; caption: string }[] = [
+  {
+    src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=720&q=80",
+    alt: "Profissional em ambiente corporativo — imagem ilustrativa",
+    caption: "E-commerce & marca"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=720&q=80",
+    alt: "Executivo em escritório — imagem ilustrativa",
+    caption: "Operação & financeiro"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=720&q=80",
+    alt: "Equipe em reunião — imagem ilustrativa",
+    caption: "Produto & tecnologia"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=720&q=80",
+    alt: "Pessoas analisando dados em notebook — imagem ilustrativa",
+    caption: "Growth & performance"
+  }
+];
+
+const contactHeroImage =
+  "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80";
 
 const psps = [
   "Asaas",
@@ -376,7 +405,8 @@ export function PayleLanding() {
                   ))}
                 </div>
                 <p className="min-w-0 text-sm leading-snug text-slate-600">
-                  {stats.map((s) => `${s.k} ${s.v}`).join(" · ")}
+                  Loja, infoproduto, LMS ou ERP: você mantém o processador; a Payle cuida da página que fecha a compra e
+                  do que acontece depois do &quot;pago&quot;.
                 </p>
               </motion.div>
               <motion.p variants={fadeUp} className={t.badge}>
@@ -386,17 +416,15 @@ export function PayleLanding() {
                 >
                   <IconSpark className={`h-4 w-4 ${t.badgeSpark}`} />
                 </motion.span>
-                Checkout — você mantém seu gateway
+                O adquirente continua sendo o seu; a experiência de pagamento, nossa.
               </motion.p>
               <motion.h1 variants={fadeUp} className={t.h1}>
-                O checkout conectado ao <span className={t.h1Pix}>seu</span> gateway, com integrações nativas e
-                rastreamento avançado.
+                Checkout integrado ao gateway com rastreamento avançado.
               </motion.h1>
               <motion.p variants={fadeUp} className={t.heroLead}>
-                A Payle não substitui seu adquirente: ela orquestra PIX, cartão e boleto na mesma experiência, conecta
-                Asaas, Mercado Pago, PagSeguro, Efi, Stone, Cielo, Pagar.me, Appmax e Dom Pagamentos, e ainda entrega
-                arquivos automaticamente para infoprodutores — com pixels, supertracking e superrecuperação de carrinho
-                dentro do funil.
+                A Payle conecta PIX, cartão e boleto em uma única jornada, integrando gateways como Asaas, Mercado
+                Pago, Stone e Pagar.me, com supertracking, recuperação de carrinho e liberação automática de produtos
+                após pagamento aprovado.
               </motion.p>
               <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
                 <motion.a
@@ -438,11 +466,63 @@ export function PayleLanding() {
               </div>
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ ...ease, delay: reduce ? 0 : 0.12 }}
-                className="relative z-10 mx-auto w-full max-w-lg overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_16px_48px_-12px_rgba(15,23,42,0.12)]"
+                className="relative z-10 mx-auto w-full max-w-lg"
+                animate={reduce ? undefined : { y: [0, -7, 0] }}
+                transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
               >
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    ...(reduce
+                      ? {}
+                      : {
+                          boxShadow: [
+                            "0 16px 48px -12px rgba(15,23,42,0.12), 0 0 0 1px rgba(59,130,246,0.06)",
+                            "0 22px 56px -14px rgba(15,23,42,0.14), 0 0 28px -8px rgba(59,130,246,0.22)",
+                            "0 16px 48px -12px rgba(15,23,42,0.12), 0 0 0 1px rgba(59,130,246,0.06)"
+                          ]
+                        })
+                  }}
+                  transition={{
+                    opacity: { ...ease, delay: reduce ? 0 : 0.12 },
+                    y: { ...ease, delay: reduce ? 0 : 0.12 },
+                    boxShadow: reduce
+                      ? undefined
+                      : { duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.35 }
+                  }}
+                  whileHover={
+                    reduce
+                      ? undefined
+                      : {
+                          y: -4,
+                          boxShadow:
+                            "0 24px 64px -16px rgba(15,23,42,0.16), 0 0 36px -6px rgba(59,130,246,0.28)",
+                          transition: { type: "spring", stiffness: 420, damping: 28 }
+                        }
+                  }
+                  className="relative overflow-hidden rounded-xl border border-slate-200/95 bg-white shadow-[0_16px_48px_-12px_rgba(15,23,42,0.12)] ring-1 ring-slate-900/[0.03]"
+                >
+                  {!reduce && (
+                    <div
+                      className="pointer-events-none absolute inset-0 z-20 overflow-hidden rounded-xl mix-blend-soft-light"
+                      aria-hidden
+                    >
+                      <motion.div
+                        className="absolute -left-1/3 top-0 h-full w-1/2 skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/55 to-transparent"
+                        initial={false}
+                        animate={{ x: ["-20%", "220%"] }}
+                        transition={{
+                          duration: 2.6,
+                          repeat: Infinity,
+                          repeatDelay: 4.2,
+                          ease: [0.4, 0, 0.2, 1]
+                        }}
+                      />
+                    </div>
+                  )}
+
                 <div className="flex h-11 items-center gap-2 border-b border-slate-100 bg-slate-50/95 px-3">
                   <span className="flex gap-1.5" aria-hidden>
                     <span className="h-2 w-2 rounded-full bg-slate-300" />
@@ -458,9 +538,23 @@ export function PayleLanding() {
                     </span>
                   </div>
                 </div>
-                <p className="bg-slate-900 py-1.5 text-center font-mono text-[10px] font-medium tracking-wide text-slate-300">
+                <motion.p
+                  className="relative z-10 bg-slate-900 py-1.5 text-center font-mono text-[10px] font-medium tracking-wide text-slate-300"
+                  animate={
+                    reduce
+                      ? undefined
+                      : {
+                          boxShadow: [
+                            "inset 0 -1px 0 0 rgba(59,130,246,0)",
+                            "inset 0 -1px 0 0 rgba(59,130,246,0.45)",
+                            "inset 0 -1px 0 0 rgba(59,130,246,0)"
+                          ]
+                        }
+                  }
+                  transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+                >
                   charge_approved
-                </p>
+                </motion.p>
 
                 <div className="grid gap-4 p-4 sm:grid-cols-2 sm:gap-5 sm:p-5">
                   <div className="space-y-2.5">
@@ -515,7 +609,14 @@ export function PayleLanding() {
                   </div>
                 </div>
 
-                <div className="h-1.5 w-full bg-gradient-to-r from-blue-600 via-sky-500 to-blue-600" aria-hidden />
+                <motion.div
+                  className="relative z-10 h-1.5 w-full bg-gradient-to-r from-blue-600 via-sky-400 to-blue-600"
+                  style={{ backgroundSize: "200% 100%" }}
+                  aria-hidden
+                  animate={reduce ? undefined : { backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                />
+              </motion.div>
               </motion.div>
             </div>
           </div>
@@ -560,11 +661,11 @@ export function PayleLanding() {
                 </div>
                 <span className={t.productKicker}>Produto</span>
               </div>
-              <h2 className={t.sectionTitle}>Checkout que conversa com o seu stack — sem trocar de adquirente</h2>
+              <h2 className={t.sectionTitle}>Seu stack no comando; a Payle na camada em que o cliente paga</h2>
               <p className={t.productLead}>
-                Monte páginas de pagamento com identidade da sua marca, conecte o gateway que já contratou e use
-                integrações nativas com os principais processadores do Brasil. Para loja virtual, infoproduto, LMS ou
-                ERP, a Payle fica na camada de checkout e entrega de conteúdo — você continua dono da liquidação.
+                Você monta a página com a cara da marca e mantém o gateway que já contratou. As integrações nativas com
+                os principais processadores do Brasil cobrem loja virtual, infoproduto, LMS na Educe e operação em
+                Bling ou Tiny: a Payle fica entre o comprador e a confirmação — você segue dono da liquidação.
               </p>
             </motion.div>
             <motion.div
@@ -649,6 +750,66 @@ export function PayleLanding() {
                 <rect x="208" y="183" width="52" height="8" rx="2" fill="currentColor" opacity="0.12" />
               </motion.svg>
             </motion.div>
+          </div>
+        </section>
+
+        <section id="operacao" className="border-y border-slate-200/80 bg-white py-20 sm:py-24">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewport}
+              transition={ease}
+              className="mx-auto max-w-3xl text-center lg:mx-0 lg:max-w-2xl lg:text-left"
+            >
+              <p className={t.productKicker}>Operação real</p>
+              <h2 className={`mt-3 ${t.sectionTitle}`}>Feito para quem vende todo dia — não só para o slide da reunião</h2>
+              <p className={`mt-4 ${t.bodyMuted}`}>
+                Loja, lançamento, curso ou ERP: são esses perfis que mais falam com a gente na hora de integrar gateway,
+                checkout e rastreamento. As fotos são{" "}
+                <strong className="font-semibold text-slate-800">ilustrativas</strong> (banco aberto Unsplash); quando
+                você tiver retratos do time ou depoimentos com autorização, eles entram aqui no lugar — e o site fica
+                ainda mais seu.
+              </p>
+            </motion.div>
+
+            <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+              {operationGallery.map((item, i) => (
+                <motion.figure
+                  key={item.src}
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={viewport}
+                  transition={{ ...ease, delay: reduce ? 0 : i * 0.06 }}
+                  className="group overflow-hidden rounded-2xl border border-slate-200/90 bg-slate-50 shadow-sm ring-1 ring-slate-900/[0.02] transition-shadow duration-300 hover:shadow-md"
+                >
+                  <div className="relative aspect-[4/5] w-full overflow-hidden">
+                    <Image
+                      src={item.src}
+                      alt={item.alt}
+                      fill
+                      className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    />
+                  </div>
+                  <figcaption className="border-t border-slate-100 bg-white px-3 py-2.5 text-center text-xs font-medium text-slate-600">
+                    {item.caption}
+                  </figcaption>
+                </motion.figure>
+              ))}
+            </div>
+            <p className="mt-6 text-center text-[11px] leading-relaxed text-slate-400 lg:text-left">
+              Imagens:{" "}
+              <a
+                href="https://unsplash.com/?utm_source=payle&utm_medium=referral"
+                className="underline decoration-slate-300 underline-offset-2 hover:text-slate-600"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Unsplash
+              </a>{" "}
+              (uso permitido pela licença do site). Substitua por fotos próprias quando fizer sentido para a marca.
+            </p>
           </div>
         </section>
 
@@ -857,8 +1018,8 @@ export function PayleLanding() {
             >
               <h2 className={t.sectionTitle}>Dúvidas frequentes</h2>
               <p className={t.faqLead}>
-                Respostas objetivas com base no que a Payle oferece hoje — gateway seu, checkout nosso, integrações
-                nativas e performance no funil.
+                As dúvidas que mais aparecem quando alguém já opera checkout e gateway no dia a dia — em linguagem
+                direta, alinhada ao que a Payle entrega hoje.
               </p>
             </motion.div>
             <div className="mx-auto mt-10 max-w-3xl">
@@ -879,57 +1040,88 @@ export function PayleLanding() {
         </section>
 
         <section id="contato" className={t.sectionContact}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewport}
-            transition={ease}
-            className="mx-auto max-w-3xl px-4 text-center sm:px-6"
-          >
-            <motion.div
-              className={t.contactIconBox}
-              animate={
-                reduce
-                  ? undefined
-                  : {
-                      boxShadow: [t.contactPulse[0], t.contactPulse[1], t.contactPulse[2]]
-                    }
-              }
-              transition={{ duration: 2.5, repeat: Infinity }}
-            >
-              <IconMail className="h-7 w-7" />
-            </motion.div>
-            <h2 className={t.sectionTitle}>Pronto para receber com a Payle?</h2>
-            <p className={t.contactLead}>
-              Deixe seu e-mail corporativo e retornamos com acesso ao sandbox e proposta comercial.
-            </p>
-            <motion.form
-              className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center"
-              onSubmit={(e) => e.preventDefault()}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ ...ease, delay: reduce ? 0 : 0.1 }}
-            >
-              <motion.input
-                type="email"
-                required
-                placeholder="voce@suaempresa.com.br"
-                className={t.input}
-                whileFocus={reduce ? undefined : { scale: 1.02 }}
-              />
-              <motion.button
-                type="submit"
-                className={t.submit}
-                whileHover={reduce ? undefined : { scale: 1.04 }}
-                whileTap={reduce ? undefined : { scale: 0.97 }}
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewport}
+                transition={ease}
+                className="text-center lg:text-left"
               >
-                Quero testar
-                <IconArrowRight className="h-4 w-4" />
-              </motion.button>
-            </motion.form>
-            <p className={t.disclaimer}>Ao enviar, você concorda em receber contato da Payle sobre produtos e serviços.</p>
-          </motion.div>
+                <motion.div
+                  className={`mx-auto lg:mx-0 ${t.contactIconBox}`}
+                  animate={
+                    reduce
+                      ? undefined
+                      : {
+                          boxShadow: [t.contactPulse[0], t.contactPulse[1], t.contactPulse[2]]
+                        }
+                  }
+                  transition={{ duration: 2.5, repeat: Infinity }}
+                >
+                  <IconMail className="h-7 w-7" />
+                </motion.div>
+                <h2 className={`mt-6 ${t.sectionTitle}`}>Quer ver isso no ar com a sua marca?</h2>
+                <p className={`${t.contactLead} lg:mx-0`}>
+                  Envie um e-mail comercial: o time retorna com sandbox, próximos passos e proposta alinhada à sua
+                  operação.
+                </p>
+                <motion.form
+                  className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start"
+                  onSubmit={(e) => e.preventDefault()}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ ...ease, delay: reduce ? 0 : 0.1 }}
+                >
+                  <motion.input
+                    type="email"
+                    required
+                    placeholder="voce@suaempresa.com.br"
+                    className={t.input}
+                    whileFocus={reduce ? undefined : { scale: 1.02 }}
+                  />
+                  <motion.button
+                    type="submit"
+                    className={t.submit}
+                    whileHover={reduce ? undefined : { scale: 1.04 }}
+                    whileTap={reduce ? undefined : { scale: 0.97 }}
+                  >
+                    Quero testar
+                    <IconArrowRight className="h-4 w-4" />
+                  </motion.button>
+                </motion.form>
+                <p className={`mt-5 ${t.disclaimer}`}>
+                  Ao enviar, você concorda em receber contato da Payle sobre produtos e serviços.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, scale: reduce ? 1 : 0.97 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={viewport}
+                transition={{ ...ease, delay: reduce ? 0 : 0.08 }}
+                className="relative mx-auto aspect-[4/3] w-full max-w-lg overflow-hidden rounded-3xl border border-slate-200/90 bg-slate-100 shadow-[0_20px_50px_-20px_rgba(15,23,42,0.15)] ring-1 ring-slate-900/[0.03] lg:max-w-none"
+              >
+                <Image
+                  src={contactHeroImage}
+                  alt="Duas pessoas cumprimentando em ambiente de trabalho — imagem ilustrativa de atendimento e parceria"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority={false}
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/25 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 text-left">
+                  <p className="text-xs font-medium text-white/95 drop-shadow-sm">
+                    Atendimento comercial com humano do outro lado — sem prometer o que a operação não entrega.
+                  </p>
+                  <p className="mt-1 text-[10px] text-white/70">Foto ilustrativa · Unsplash</p>
+                </div>
+              </motion.div>
+            </div>
+          </div>
         </section>
       </main>
 
@@ -952,7 +1144,8 @@ export function PayleLanding() {
                 </span>
               </div>
               <p className={t.footerTagline}>
-                Checkout conectado ao seu gateway — integrações nativas, tracking e recuperação no mesmo funil.
+                Seu adquirente, nossa página de pagamento: integrações nativas, tracking e recuperação onde a venda
+                acontece.
               </p>
             </div>
             <div>
