@@ -384,7 +384,7 @@ export function PayleLanding() {
               variants={container}
               initial="hidden"
               animate="show"
-              className={`order-2 min-w-0 lg:order-1 ${t.heroMaxWidth}`}
+              className={`order-1 min-w-0 ${t.heroMaxWidth}`}
             >
               <motion.div variants={fadeUp} className="mb-6 flex flex-wrap items-center gap-3 sm:gap-4">
                 <div className="flex shrink-0 -space-x-2.5" aria-hidden>
@@ -450,7 +450,7 @@ export function PayleLanding() {
               </motion.div>
             </motion.div>
 
-            <div className={`order-1 w-full justify-self-center lg:order-2 lg:justify-self-end ${t.heroMockFrame}`}>
+            <div className={`order-2 w-full justify-self-center lg:justify-self-end ${t.heroMockFrame}`}>
               <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center">
                 <motion.div
                   className="h-[18rem] w-[18rem] max-w-[95%] blur-3xl sm:h-[20rem] sm:w-[20rem]"
