@@ -3,6 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import { ComponentType, ReactNode, SVGProps } from "react";
 import Image from "next/image";
+import checkoutHeroImg from "@/assets/MDS.png";
 import { payleTheme } from "./payleTheme";
 import { PayleLandingHero } from "./PayleLandingHero";
 import { PayleSiteChrome } from "./PayleSiteChrome";
@@ -459,9 +460,17 @@ export function PayleLanding() {
         </motion.div>
         <motion.div
           variants={fadeUp}
-          className="relative hidden min-h-[260px] max-w-lg justify-self-center lg:block lg:max-w-none"
-          aria-hidden
-        />
+          className="relative mx-auto w-full max-w-md justify-self-center sm:max-w-lg lg:mx-0 lg:max-w-none"
+        >
+          <div className="relative overflow-hidden rounded-2xl bg-slate-950/5 shadow-[0_28px_70px_-34px_rgba(15,23,42,0.28)] ring-1 ring-slate-200/70">
+            <Image
+              src={checkoutHeroImg}
+              alt="Profissional usando notebook em ambiente de trabalho; checkout com métricas e conversão — ilustração promocional Payle"
+              sizes="(max-width: 1024px) 92vw, 44vw"
+              className="block h-auto w-full object-cover object-center"
+            />
+          </div>
+        </motion.div>
       </StorySection>
 
       {/* Planos */}
