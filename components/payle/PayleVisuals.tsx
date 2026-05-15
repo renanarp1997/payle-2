@@ -606,7 +606,7 @@ export function StorySection({
           viewport={{ once: true, margin: "-80px" }}
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12 } } }}
         >
-          <div className="story-grid grid items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+          <div className="story-grid grid items-center gap-10 py-2 lg:grid-cols-2 lg:gap-16 lg:py-0 xl:gap-20">
             {children}
           </div>
         </motion.div>

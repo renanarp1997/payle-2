@@ -1,6 +1,8 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
+import { PayleAcquirerCarousel } from "./PayleAcquirerCarousel";
+import { payleAcquirers } from "./payleAcquirers";
 import { payleTheme } from "./payleTheme";
 import { PayleSiteChrome } from "./PayleSiteChrome";
 import {
@@ -29,18 +31,6 @@ const integracoesGalleryPhotos: EditorialPhotoItem[] = [
     caption: "Integração técnica nativa"
   }
 ];
-
-const psps = [
-  "Asaas",
-  "Mercado Pago",
-  "PagSeguro",
-  "Efi",
-  "Stone",
-  "Cielo",
-  "Pagar.me",
-  "Appmax",
-  "Dom Pagamentos"
-] as const;
 
 const integrationGroups: { title: string; body: string }[] = [
   { title: "E-commerce", body: "Shopify e WooCommerce para sua loja online." },
@@ -87,21 +77,7 @@ export function PayleIntegracoesPage() {
           className="mx-auto mt-12 max-w-3xl text-center"
         >
           <p className={t.integrationSubhead}>Adquirentes</p>
-          <motion.div className="mt-4 flex flex-wrap justify-center gap-2">
-            {psps.map((name, i) => (
-              <motion.span
-                key={name}
-                className={t.integrationPill}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: reduce ? 0 : i * 0.03 }}
-                whileHover={reduce ? undefined : { y: -2 }}
-              >
-                {name}
-              </motion.span>
-            ))}
-          </motion.div>
+          <PayleAcquirerCarousel acquirers={payleAcquirers} className="mt-6 w-full max-w-5xl lg:mx-auto lg:mt-5" />
         </motion.div>
 
         <div className="mx-auto mt-16 max-w-6xl">

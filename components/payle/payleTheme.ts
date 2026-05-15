@@ -69,6 +69,7 @@ export interface PayleTheme {
   planIconBox: string;
   planTitle: string;
   planPrice: string;
+  planPriceEnterprise: string;
   planDesc: string;
   planCtaHi: string;
   planCtaLo: string;
@@ -203,7 +204,8 @@ const brancoAzul: PayleTheme = {
   planIconBox:
     "relative mb-1 flex h-11 w-11 items-center justify-center rounded-xl border border-blue-100 bg-blue-50 text-blue-600",
   planTitle: "relative mt-3 text-lg font-semibold tracking-tight text-slate-900",
-  planPrice: "relative mt-3 font-mono text-xl font-semibold tabular-nums text-blue-600",
+  planPrice: "relative mt-3 text-2xl font-semibold tracking-[-0.02em] text-slate-900 sm:text-[1.65rem]",
+  planPriceEnterprise: "relative mt-3 text-xl font-semibold tracking-tight text-slate-600",
   planDesc: "relative mt-3 flex-1 text-sm leading-relaxed text-slate-600",
   planCtaHi:
     "w-full rounded-full bg-blue-600 px-4 py-2.5 text-white shadow-md shadow-blue-600/20 transition-colors hover:bg-blue-500",
@@ -256,3 +258,11 @@ const brancoAzul: PayleTheme = {
 };
 
 export const payleTheme: PayleTheme = brancoAzul;
+
+export {
+  payleDisplayedPlanPrices,
+  payleDisplayedTransactionFeeRef,
+  paylePlanComparisonMatrix
+} from "./paylePlanModel";
+
+export type { PayleComparisonFeatureRow, PaylePlanName } from "./paylePlanModel";

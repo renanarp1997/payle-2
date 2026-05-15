@@ -47,13 +47,18 @@ const config: Config = {
         "payle-shimmer": {
           "0%": { backgroundPosition: "0% 50%" },
           "100%": { backgroundPosition: "200% 50%" }
+        },
+        "payle-marquee": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" }
         }
       },
       animation: {
         "payle-pulse-glow": "payle-pulse-glow 8s ease-in-out infinite",
         "payle-grid-drift": "payle-grid-drift 22s linear infinite",
         "payle-float": "payle-float 6s ease-in-out infinite",
-        "payle-shimmer": "payle-shimmer 8s linear infinite"
+        "payle-shimmer": "payle-shimmer 8s linear infinite",
+        "payle-marquee": "payle-marquee 48s linear infinite"
       },
       boxShadow: {
         "payle-glow": "0 0 40px -8px rgba(59,130,246,0.35), 0 0 24px -12px rgba(34,197,94,0.2)",

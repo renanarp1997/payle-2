@@ -1,63 +1,153 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { ComponentType, SVGProps } from "react";
-import { payleTheme } from "./payleTheme";
+import { FormEvent, useState, type ComponentType, type SVGProps } from "react";
+import type { PaylePlanName } from "./paylePlanModel";
+import { payleDisplayedPlanPrices, payleTheme } from "./payleTheme";
+import { PaylePlanComparisonTable } from "./PaylePlanComparisonTable";
+import { PaylePlanPricingCard } from "./PaylePlanPricingCard";
 import { PayleSiteChrome } from "./PayleSiteChrome";
+import { IconArrowRight, IconLayers, IconSpark, IconTerminal } from "./PayleIcons";
 import {
-  PaylePageLinks,
   PaylePageSection,
   PayleSubpageHero,
   SectionHeader,
   usePayleMotion
 } from "./PayleVisuals";
-import { IconArrowRight, IconLayers, IconSpark, IconTerminal } from "./PayleIcons";
-import { PayleEditorialBanner, PayleEditorialGallery, type EditorialPhotoItem } from "./PayleEditorialPhotos";
+import { payleCommercialWhatsAppUrl } from "./payleWhatsAppCommercial";
 
 type SvgIcon = ComponentType<SVGProps<SVGSVGElement>>;
 
-const planosGalleryPhotos: EditorialPhotoItem[] = [
-  {
-    src: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&w=720&q=80",
-    alt: "Dois profissionais revisando documentos — imagem ilustrativa",
-    caption: "Contratos & escopo sob medida"
+const planCtaByTier: Record<PaylePlanName, { label: string; message: string }> = {
+  Starter: {
+    label: "Começar agora",
+    message:
+      "Olá! Vi a página de planos e quero começar com o Starter (R$149/mês + 2% sobre transações aprovadas). Podemos avançar?"
   },
-  {
-    src: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=720&q=80",
-    alt: "Equipe em alinhamento ao redor de quadro — imagem ilustrativa",
-    caption: "Planejamento com o time comercial"
+  Scale: {
+    label: "Escalar minhas vendas",
+    message:
+      "Olá! Quero escalar minhas vendas com o plano Scale (R$499/mês + 1,5% sobre transações aprovadas). Podemos conversar?"
+  },
+  Enterprise: {
+    label: "Falar com especialista",
+    message:
+      "Olá! Gostaria de falar com um especialista sobre o plano Enterprise, com taxas e operações personalizadas para alto volume."
   }
-];
+};
 
-const plans: {
-  name: string;
+const planTiers: {
+  name: PaylePlanName;
   price: string;
-  desc: string;
   highlight: boolean;
   Icon: SvgIcon;
 }[] = [
-  {
-    name: "Starter",
-    price: "Consulte",
-    desc: "Ideal para validar oferta, primeiro funil e checkout em produção.",
-    highlight: false,
-    Icon: IconSpark
-  },
-  {
-    name: "Scale",
-    price: "Consulte",
-    desc: "Mais volume, prioridade em suporte e pacote completo de tracking e recuperação.",
-    highlight: true,
-    Icon: IconLayers
-  },
-  {
-    name: "Enterprise",
-    price: "Sob consulta",
-    desc: "Múltiplas marcas, SSO, SLAs, customizações de checkout, pixels e integrações dedicadas.",
-    highlight: false,
-    Icon: IconTerminal
-  }
+  { name: "Starter", price: payleDisplayedPlanPrices.starterMonthly, highlight: false, Icon: IconSpark },
+  { name: "Scale", price: payleDisplayedPlanPrices.scaleMonthly, highlight: true, Icon: IconLayers },
+  { name: "Enterprise", price: payleDisplayedPlanPrices.enterprise, highlight: false, Icon: IconTerminal }
 ];
+
+const valueProps = [
+  {
+    title: "Maior conversão",
+    body: "Checkout otimizado para concluir compras com menos fricção e mais clareza no pagamento."
+  },
+  {
+    title: "Menos abandono",
+    body: "Fluxo confiável e mensagens coerentes no momento da decisão — menos carrinho parado."
+  },
+  {
+    title: "Melhor aprovação",
+    body: "Estrutura pensada para reduzir ruído operacional e melhorar a taxa de sucesso no adquirente."
+  },
+  {
+    title: "Integração enxuta",
+    body: "Menos dependências improvisadas: ligamos pixels, gateways e operação no mesmo desenho."
+  },
+  {
+    title: "Resultado em escala",
+    body: "Do crescimento à governança: métricas e suporte alinhados ao que importa para o CFO e para o e-commerce."
+  }
+] as const;
+
+function PlanosWhatsAppLead() {
+  const t = payleTheme;
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+
+  function onSubmit(e: FormEvent) {
+    e.preventDefault();
+    const parts = [
+      name.trim() && `Meu nome é ${name.trim()}.`,
+      phone.trim() && `Meu telefone é ${phone.trim()}.`,
+      "Gostaria de falar sobre os planos Payle."
+    ].filter(Boolean) as string[];
+    const message = parts.join(" ");
+    window.open(payleCommercialWhatsAppUrl(message), "_blank", "noopener,noreferrer");
+  }
+
+  return (
+    <section id="whatsapp-lead" aria-labelledby="whatsapp-lead-title" className={`relative overflow-hidden ${t.sectionContact}`}>
+      <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24">
+        <div className="mx-auto max-w-xl text-center">
+          <p className={t.productKicker}>Contato imediato</p>
+          <h2 id="whatsapp-lead-title" className={`mt-3 ${t.sectionTitle}`}>
+            Fale com o time no WhatsApp
+          </h2>
+          <p className={`mt-4 ${t.bodyMuted} text-base sm:text-lg`}>
+            Deixe seus dados e abrimos a conversa já com contexto. Resposta comercial, sem fila de suporte genérica.
+          </p>
+        </div>
+
+        <form
+          onSubmit={onSubmit}
+          className="mx-auto mt-10 max-w-lg rounded-2xl border border-slate-200/90 bg-white/95 p-6 shadow-[0_24px_55px_-44px_rgba(15,23,42,0.18)] ring-1 ring-slate-900/[0.04] sm:p-8"
+        >
+          <div className="space-y-5">
+            <div>
+              <label htmlFor="planos-wa-name" className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+                Nome
+              </label>
+              <input
+                id="planos-wa-name"
+                name="name"
+                autoComplete="name"
+                value={name}
+                onChange={(ev) => setName(ev.target.value)}
+                required
+                placeholder="Como podemos te chamar?"
+                className={`mt-2 w-full max-w-full rounded-xl sm:max-w-none ${t.input}`}
+              />
+            </div>
+            <div>
+              <label htmlFor="planos-wa-phone" className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+                Telefone
+              </label>
+              <input
+                id="planos-wa-phone"
+                name="phone"
+                type="tel"
+                autoComplete="tel"
+                inputMode="tel"
+                value={phone}
+                onChange={(ev) => setPhone(ev.target.value)}
+                required
+                placeholder="DDD + número"
+                className={`mt-2 w-full max-w-full rounded-xl sm:max-w-none ${t.input}`}
+              />
+            </div>
+          </div>
+          <button type="submit" className={`${t.submit} mt-8 w-full justify-center`}>
+            Falar no WhatsApp
+          </button>
+          <p className={`${t.disclaimer} mt-4 text-center`}>
+            Ao continuar, você será redirecionado para o WhatsApp com uma mensagem pré-preenchida.
+          </p>
+        </form>
+      </div>
+    </section>
+  );
+}
 
 export function PaylePlanosPage() {
   const t = payleTheme;
@@ -65,90 +155,128 @@ export function PaylePlanosPage() {
 
   const container: Variants = {
     hidden: {},
-    show: { transition: { staggerChildren: stagger, delayChildren: reduce ? 0 : 0.05 } }
+    show: { transition: { staggerChildren: stagger, delayChildren: reduce ? 0 : 0.06 } }
   };
+
+  const genericWa = payleCommercialWhatsAppUrl(
+    "Olá! Acessei a página de planos da Payle e gostaria de falar com o comercial."
+  );
 
   return (
     <PayleSiteChrome>
-      <PayleSubpageHero
-        kicker="Planos"
-        title="Planos Payle"
-        accentWord="Payle"
-        variant="default"
-        visualId="planos"
-        lead="Do primeiro funil ao volume corporativo: cada plano acompanha um estágio da operação — valores e limites são definidos com o time comercial, conforme escopo e necessidade."
-      />
-
-      <PaylePageSection className={t.sectionPlans} variant="default">
-        <SectionHeader
-          kicker="Escolha o estágio"
-          title="Starter, Scale e Enterprise"
-          lead="Cada faixa corresponde a um perfil de operação — da validação ao alto volume e requisitos enterprise."
-          align="center"
+      <div className="pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:pb-0">
+        <PayleSubpageHero
+          kicker="Planos"
+          title="Infraestrutura de checkout para marcas que vendem em escala"
+          accentWord="escala"
+          variant="default"
+          visualId="planos"
+          lead={`Mensalidades acessíveis na entrada (${payleDisplayedPlanPrices.starterMonthly} ou ${payleDisplayedPlanPrices.scaleMonthly}), com modelo que reflete volumetria nas taxas de transação. Sem plano gratuito visível aqui — alinhamos tudo diretamente no comercial antes de ligar produção.`}
         />
 
-        <PayleEditorialBanner
-          className="mx-auto mt-12 max-w-5xl"
-          src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1400&q=80"
-          alt="Dois profissionais cumprimentando-se em ambiente corporativo — imagem ilustrativa"
-          caption="Parceria comercial para definir plano, volume e suporte com transparência."
-          showCredit={false}
-        />
+        <PaylePageSection className={t.sectionRecursos} variant="default">
+          <SectionHeader
+            kicker="Por que a Payle importa"
+            title="Resultados operacionais, não só recursos isolados"
+            lead="O checkout é onde a margem aparece ou desaparece. Deixamos a página clara para o cliente e previsível para o seu time financeiro e de growth."
+            align="center"
+          />
 
-        <div className="mx-auto mt-14 max-w-4xl">
-          <PayleEditorialGallery photos={planosGalleryPhotos} columns={2} />
-        </div>
-
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewport}
-          className="mt-16 grid items-stretch gap-6 lg:grid-cols-3"
-        >
-          {plans.map((plan) => (
-            <motion.div
-              key={plan.name}
-              variants={scaleIn}
-              whileHover={reduce ? undefined : { y: -8 }}
-              className={plan.highlight ? t.planCardHi : t.planCard}
-            >
-              {plan.highlight && (
-                <motion.div
-                  className="pointer-events-none absolute inset-0 opacity-30"
-                  animate={reduce ? undefined : { backgroundPosition: ["0% 0%", "100% 100%"] }}
-                  transition={{ duration: 8, repeat: Infinity, repeatType: "reverse" }}
-                  style={{ backgroundImage: t.planHiShimmer, backgroundSize: "200% 200%" }}
-                />
-              )}
-              <motion.div className={t.planIconBox} whileHover={reduce ? undefined : { rotate: 4 }}>
-                <plan.Icon className="h-5 w-5" />
-              </motion.div>
-              <h3 className={t.planTitle}>{plan.name}</h3>
-              <p className={t.planPrice}>{plan.price}</p>
-              <p className={t.planDesc}>{plan.desc}</p>
-              <motion.a
-                href="/#contato"
-                className={`relative mt-auto inline-flex w-full items-center justify-center gap-2 rounded-full py-2.5 text-center text-sm font-semibold ${
-                  plan.highlight ? t.planCtaHi : t.planCtaLo
-                }`}
-                whileHover={reduce ? undefined : { scale: 1.02 }}
-                whileTap={reduce ? undefined : { scale: 0.98 }}
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+            {valueProps.map((item, idx) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewport}
+                transition={{ duration: reduce ? 0.01 : 0.42, delay: reduce ? 0 : idx * 0.06 }}
+                className={t.featureCard}
               >
-                Falar sobre {plan.name}
-                <IconArrowRight className="h-4 w-4 opacity-80" />
-              </motion.a>
-            </motion.div>
-          ))}
-        </motion.div>
+                <p className="relative text-base font-semibold leading-snug tracking-tight text-slate-900">{item.title}</p>
+                <p className={t.featureBody}>{item.body}</p>
+                <span
+                  className="mt-4 h-px w-8 bg-gradient-to-r from-blue-600 to-emerald-500 transition-[width] duration-300 group-hover:w-12"
+                  aria-hidden
+                />
+              </motion.div>
+            ))}
+          </div>
+        </PaylePageSection>
 
-        <PaylePageLinks
-          links={[
-            { href: "/duvidas", label: "Dúvidas frequentes", accent: true },
-            { href: "/recursos", label: "Ver recursos" }
-          ]}
-        />
-      </PaylePageSection>
+        <PaylePageSection className={t.sectionPlans} variant="default">
+          <SectionHeader
+            kicker="Investimento"
+            title="Três perfis claros para alinhar crescimento e governança"
+            lead="Escolha o ponto de partida pelo perfil da operação. Ajustamos detalhes de taxas e SLA com transparência — sempre em canal comercial."
+            align="center"
+          />
+
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={viewport}
+            className="mt-14 flex gap-6 overflow-x-auto scroll-smooth pb-2 pl-[max(0px,calc(env(safe-area-inset-left)))] [-ms-overflow-style:none] [scrollbar-width:thin] snap-x snap-mandatory md:grid md:gap-8 md:overflow-visible md:pb-0 md:pl-0 lg:grid-cols-3 [&::-webkit-scrollbar]:h-[6px] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-400/55"
+          >
+            {planTiers.map((plan) => (
+              <div
+                key={plan.name}
+                className={`min-w-[min(340px,calc(100vw-3rem))] shrink-0 snap-center sm:min-w-[300px] md:min-w-0 ${
+                  plan.highlight ? "lg:-mt-3 lg:mb-[-0.75rem]" : ""
+                }`}
+              >
+                <PaylePlanPricingCard
+                  variants={scaleIn}
+                  name={plan.name}
+                  monthlyDisplay={plan.price}
+                  highlight={plan.highlight}
+                  Icon={plan.Icon}
+                  popularBadgeLabel={plan.highlight ? "Mais escolhido" : undefined}
+                  whatsappMessage={planCtaByTier[plan.name].message}
+                  ctaLabel={planCtaByTier[plan.name].label}
+                />
+              </div>
+            ))}
+          </motion.div>
+
+          <div className="mx-auto mt-20 max-w-2xl text-center sm:mt-24">
+            <SectionHeader
+              kicker="Comparativo"
+              title="O que cada plano entrega para o seu e-commerce"
+              lead="Visão rápida de maturidade de produto. Detalhes comerciais e contratuais fechamos no WhatsApp."
+              align="center"
+            />
+          </div>
+          <PaylePlanComparisonTable className="mt-12 sm:mt-14" />
+        </PaylePageSection>
+
+        <PlanosWhatsAppLead />
+
+        <PaylePageSection className="border-t border-slate-200/60 bg-slate-50/40 py-14 sm:py-16" variant="default">
+          <div className="flex justify-center border-t border-slate-200/70 pt-10">
+            <a
+              href="/duvidas"
+              className={`inline-flex items-center gap-2 text-sm font-semibold ${t.footerLink}`}
+            >
+              Dúvidas frequentes
+              <IconArrowRight className="h-4 w-4" aria-hidden />
+            </a>
+          </div>
+        </PaylePageSection>
+      </div>
+
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-40 pb-[env(safe-area-inset-bottom)] md:hidden">
+        <div className="pointer-events-auto border-t border-slate-200/90 bg-white/92 px-4 py-3 shadow-[0_-12px_40px_-28px_rgba(15,23,42,0.15)] backdrop-blur-md supports-[backdrop-filter]:bg-white/78">
+          <a
+            href={genericWa}
+            target="_blank"
+            rel="noreferrer noopener"
+            className={`flex w-full items-center justify-center ${t.mobileCta}`}
+          >
+            Falar no WhatsApp
+          </a>
+        </div>
+      </div>
     </PayleSiteChrome>
   );
 }

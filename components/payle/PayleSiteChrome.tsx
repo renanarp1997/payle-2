@@ -7,14 +7,37 @@ import { IconArrowRight, IconPayleMark } from "./PayleIcons";
 import { PayleHeroIllustration } from "./PaylePageIllustrations";
 import { payleNav } from "./payleNavConfig";
 
-export function PayleSiteChrome({ children }: { children: ReactNode }) {
+export function PayleSiteChrome({
+  children,
+  tone = "default"
+}: {
+  children: ReactNode;
+  /** Tom neutro institucional (ex.: página de planos); reduz elementos “tech” azuis no fundo. */
+  tone?: "default" | "ink";
+}) {
   const t = payleTheme;
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const reduce = useReducedMotion();
 
   const spring = reduce ? { duration: 0.01 } : { type: "spring" as const, stiffness: 380, damping: 28 };
+
+  const inkShell =
+    "relative isolate min-h-screen bg-[#f4f3ef] text-neutral-900 antialiased [background-image:radial-gradient(rgba(120,113,105,0.07)_1px,transparent_1px)] [background-size:26px_26px]";
+  const inkRadial =
+    "pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_118%_75%_at_50%_-12%,rgba(16,185,129,0.052),transparent_56%),radial-gradient(ellipse_52%_45%_at_94%_-2%,rgba(0,0,0,0.042),transparent_52%)] max-md:opacity-95";
+  const inkGrid =
+    "pointer-events-none fixed inset-0 z-0 bg-[length:62px_62px] bg-[position:0_0] bg-[linear-gradient(rgba(0,0,0,0.026)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.026)_1px,transparent_1px)] opacity-[0.28] max-md:opacity-[0.16]";
+
+  const shellClass = tone === "ink" ? inkShell : t.shell;
+  const radialLayer = tone === "ink" ? inkRadial : t.fixedRadial;
+  const gridLayer = tone === "ink" ? inkGrid : t.fixedGrid;
   const ease = reduce ? { duration: 0.01 } : { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const };
+
+  const footerShell =
+    tone === "ink"
+      ? "overflow-hidden border-t border-neutral-200/85 bg-[linear-gradient(180deg,#e8e6e1_0%,#efeee9_58%,rgba(236,253,245,0.22)_100%)]"
+      : t.footer;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -24,23 +47,39 @@ export function PayleSiteChrome({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <div className={t.shell}>
-      <div className={t.fixedRadial} aria-hidden />
-      <div className={t.fixedGrid} aria-hidden />
+    <div className={shellClass}>
+      <div className={radialLayer} aria-hidden />
+      <div className={gridLayer} aria-hidden />
+      {tone === "default" && (
+        <>
+          <div
+            className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_85%_55%_at_50%_120%,rgba(59,130,246,0.07),transparent_58%),radial-gradient(ellipse_50%_40%_at_90%_15%,rgba(34,197,94,0.05),transparent_60%)] max-md:opacity-90"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none fixed bottom-0 left-6 top-[4.25rem] z-0 hidden w-px bg-gradient-to-b from-transparent via-blue-500/12 to-transparent md:block lg:left-10"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none fixed bottom-0 right-6 top-[4.25rem] z-0 hidden w-px bg-gradient-to-b from-transparent via-emerald-500/10 to-transparent md:block lg:right-10"
+            aria-hidden
+          />
+        </>
+      )}
+      {tone === "ink" && (
+        <div
+          className="pointer-events-none fixed bottom-0 left-6 top-[4.25rem] z-0 hidden w-px bg-gradient-to-b from-transparent via-neutral-900/[0.08] to-transparent md:block lg:left-10"
+          aria-hidden
+        />
+      )}
+      {tone === "ink" && (
+        <div
+          className="pointer-events-none fixed bottom-0 right-6 top-[4.25rem] z-0 hidden w-px bg-gradient-to-b from-transparent via-emerald-950/[0.12] to-transparent md:block lg:right-10"
+          aria-hidden
+        />
+      )}
       <div
-        className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_85%_55%_at_50%_120%,rgba(59,130,246,0.07),transparent_58%),radial-gradient(ellipse_50%_40%_at_90%_15%,rgba(34,197,94,0.05),transparent_60%)] max-md:opacity-90"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none fixed bottom-0 left-6 top-[4.25rem] z-0 hidden w-px bg-gradient-to-b from-transparent via-blue-500/12 to-transparent md:block lg:left-10"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none fixed bottom-0 right-6 top-[4.25rem] z-0 hidden w-px bg-gradient-to-b from-transparent via-emerald-500/10 to-transparent md:block lg:right-10"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none fixed inset-0 z-0 payle-shell-diagonal opacity-[0.42] max-md:opacity-[0.26]"
+        className={`pointer-events-none fixed inset-0 z-0 payle-shell-diagonal max-md:opacity-[0.26] ${tone === "ink" ? "opacity-[0.14]" : "opacity-[0.42]"}`}
         aria-hidden
       />
 
@@ -228,9 +267,13 @@ export function PayleSiteChrome({ children }: { children: ReactNode }) {
 
       <main className="relative z-[1]">{children}</main>
 
-      <footer className={`relative z-[1] ${t.footer}`}>
+      <footer className={`relative z-[1] ${footerShell}`}>
         <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_72%_42%_at_50%_-30%,rgba(59,130,246,0.07),transparent),radial-gradient(ellipse_46%_38%_at_96%_92%,rgba(34,197,94,0.05),transparent)]"
+          className={
+            tone === "ink"
+              ? "pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_40%_at_50%-30%,rgba(16,185,129,0.06),transparent),radial-gradient(ellipse_42%_32%_at_96%_92%,rgba(0,0,0,0.04),transparent)]"
+              : "pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_72%_42%_at_50%_-30%,rgba(59,130,246,0.07),transparent),radial-gradient(ellipse_46%_38%_at_96%_92%,rgba(34,197,94,0.05),transparent)]"
+          }
           aria-hidden
         />
         <div
@@ -238,7 +281,11 @@ export function PayleSiteChrome({ children }: { children: ReactNode }) {
           aria-hidden
         />
         <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/35 to-transparent"
+          className={`pointer-events-none absolute inset-x-0 top-0 h-px ${
+            tone === "ink"
+              ? "bg-gradient-to-r from-transparent via-neutral-400/25 to-transparent"
+              : "bg-gradient-to-r from-transparent via-blue-400/35 to-transparent"
+          }`}
           aria-hidden
         />
         <motion.div

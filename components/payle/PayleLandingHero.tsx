@@ -166,7 +166,7 @@ export function PayleLandingHero() {
         aria-hidden
       />
 
-      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-4 pb-14 pt-14 sm:gap-12 sm:px-6 sm:pb-16 sm:pt-16 md:gap-14 lg:grid-cols-12 lg:gap-10 lg:px-8 lg:pb-24 lg:pt-20 xl:gap-14">
+      <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-8 px-4 pb-12 pt-10 max-[380px]:px-3 sm:gap-12 sm:px-6 sm:pb-16 sm:pt-14 md:gap-14 lg:grid-cols-12 lg:items-center lg:gap-10 lg:px-8 lg:pb-24 lg:pt-20 xl:gap-14">
         <motion.div
           variants={container}
           initial="hidden"
@@ -175,14 +175,14 @@ export function PayleLandingHero() {
         >
           <motion.div
             variants={fadeUp}
-            className="mb-8 flex flex-wrap justify-center gap-2 sm:mb-9 lg:justify-start"
+            className="mb-6 flex flex-wrap justify-center gap-x-2 gap-y-2 sm:mb-9 lg:justify-start"
           >
             <TrustPill variant="hero">Gateway sob sua gestão</TrustPill>
             <TrustPill variant="hero">Liquidação PIX ágil</TrustPill>
             <TrustPill variant="hero">Atribuição e métricas</TrustPill>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="mb-8 flex justify-center lg:justify-start">
+          <motion.div variants={fadeUp} className="mb-6 flex justify-center sm:mb-8 lg:justify-start">
             <span className="inline-flex max-w-full items-center gap-2.5 rounded-full border border-sky-200/90 bg-sky-50/95 px-3 py-2 pr-4 shadow-[0_2px_14px_-4px_rgba(37,99,235,0.14)] sm:gap-3 sm:px-4 sm:py-2.5">
               <IconPlusBadge className="h-7 w-7 shrink-0 sm:h-8 sm:w-8" />
               <span className="text-left text-sm font-semibold leading-snug text-blue-700 sm:text-[15px]">
@@ -193,7 +193,7 @@ export function PayleLandingHero() {
 
           <motion.h1
             variants={fadeUp}
-            className="text-[2rem] font-bold leading-[1.06] tracking-tight text-slate-950 sm:text-5xl sm:leading-[1.05] lg:text-[3.25rem] xl:text-[3.6rem] xl:leading-[1.04]"
+            className="text-[clamp(1.625rem,5.4vw,2rem)] font-bold leading-[1.07] tracking-tight text-slate-950 sm:text-5xl sm:leading-[1.05] lg:text-[3.25rem] xl:text-[3.6rem] xl:leading-[1.04]"
           >
             <span className="block text-slate-950">O ponto em que o</span>
             <span className="block text-slate-950">cliente conclui a</span>
@@ -203,7 +203,7 @@ export function PayleLandingHero() {
 
           <motion.p
             variants={fadeUp}
-            className="mx-auto mt-8 max-w-lg text-[15px] leading-relaxed text-slate-600 sm:text-lg lg:mx-0 lg:mt-9"
+            className="mx-auto mt-6 max-w-lg text-[15px] leading-[1.65] text-slate-600 sm:mt-8 sm:text-lg sm:leading-relaxed lg:mx-0 lg:mt-9"
           >
             Conecte PIX, cartão e boleto ao gateway que você já utiliza. Uma experiência alinhada à sua marca, com
             medição de funil e recuperação de carrinho — sem dispersar indicadores em ferramentas paralelas.
@@ -211,25 +211,25 @@ export function PayleLandingHero() {
 
           <motion.div
             variants={fadeUp}
-            className="mt-10 flex flex-wrap justify-center gap-3 sm:mt-12 lg:justify-start lg:gap-4"
+            className="mt-8 flex w-full flex-col gap-2.5 sm:mt-12 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3 lg:justify-start lg:gap-4"
           >
             <motion.a
               href="#contato"
-              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[14px] bg-[#2563eb] px-7 py-3 text-sm font-semibold text-white shadow-[0_4px_18px_-4px_rgba(37,99,235,0.55)] transition-[transform,box-shadow,background-color] duration-200 hover:bg-[#1d4ed8] hover:shadow-[0_12px_32px_-10px_rgba(37,99,235,0.45)] active:scale-[0.98]"
+              className="inline-flex min-h-[42px] w-full items-center justify-center gap-2 rounded-xl bg-[#2563eb] px-5 py-2 text-[13px] font-semibold text-white shadow-[0_4px_18px_-4px_rgba(37,99,235,0.55)] transition-[transform,box-shadow,background-color] duration-200 hover:bg-[#1d4ed8] hover:shadow-[0_12px_32px_-10px_rgba(37,99,235,0.45)] active:scale-[0.98] sm:min-h-[48px] sm:w-auto sm:rounded-[14px] sm:px-7 sm:py-3 sm:text-sm"
               whileHover={reduce ? undefined : { y: -2 }}
               whileTap={reduce ? undefined : { scale: 0.98 }}
               transition={{ duration: 0.2 }}
             >
               Falar com especialistas
-              <IconArrowRight className="h-4 w-4 opacity-95" />
+              <IconArrowRight className="h-3.5 w-3.5 shrink-0 opacity-95 sm:h-4 sm:w-4" />
             </motion.a>
             <motion.a
               href="/checkout"
-              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-[14px] border border-slate-200/95 bg-white px-6 py-3 text-sm font-semibold text-slate-800 shadow-[0_4px_14px_-8px_rgba(15,23,42,0.12)] transition-[border-color,background-color,transform,box-shadow] duration-200 hover:border-slate-300 hover:bg-slate-50/90 active:scale-[0.98]"
+              className="inline-flex min-h-[42px] w-full items-center justify-center gap-2 rounded-xl border border-slate-200/95 bg-white px-5 py-2 text-[13px] font-semibold text-slate-800 shadow-[0_4px_14px_-8px_rgba(15,23,42,0.12)] transition-[border-color,background-color,transform,box-shadow] duration-200 hover:border-slate-300 hover:bg-slate-50/90 active:scale-[0.98] sm:min-h-[48px] sm:w-auto sm:rounded-[14px] sm:px-6 sm:py-3 sm:text-sm"
               whileHover={reduce ? undefined : { y: -1 }}
               whileTap={reduce ? undefined : { scale: 0.98 }}
             >
-              <IconTerminal className={`h-4 w-4 ${t.accent}`} />
+              <IconTerminal className={`h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4 ${t.accent}`} />
               Ver jornada de checkout
             </motion.a>
           </motion.div>
@@ -237,9 +237,9 @@ export function PayleLandingHero() {
 
         {/* Coluna visual: foto integrada + cartões à esquerda */}
         <div className="relative order-2 lg:col-span-7 lg:order-2 xl:col-span-7">
-          <div className="relative mx-auto flex max-w-[420px] justify-center sm:max-w-[460px] lg:mx-0 lg:max-w-none lg:justify-end lg:pr-2">
+          <div className="relative mx-auto flex w-full max-w-none justify-center max-lg:w-[calc(100%+1rem)] max-lg:-mx-2 sm:max-w-[460px] sm:mx-auto sm:w-full lg:mx-0 lg:max-w-none lg:w-full lg:justify-end lg:pr-2">
             <div
-              className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[min(360px,82vw)] w-[min(360px,92vw)] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.12),transparent_74%)] sm:h-[420px] sm:w-[420px] lg:h-[min(560px,54vw)] lg:w-[min(540px,50vw)] lg:translate-x-[-38%]"
+              className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[min(400px,92vw)] w-[min(400px,96vw)] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.12),transparent_74%)] sm:h-[420px] sm:w-[420px] lg:h-[min(560px,54vw)] lg:w-[min(540px,50vw)] lg:translate-x-[-38%]"
               aria-hidden
             />
 
@@ -257,14 +257,14 @@ export function PayleLandingHero() {
               initial={{ opacity: 0, y: reduce ? 0 : 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...ease, delay: reduce ? 0 : 0.08 }}
-              className="relative z-10 w-full max-h-[280px] sm:max-h-[360px] lg:max-h-[min(580px,74vh)] xl:max-h-[min(620px,76vh)]"
+              className="relative z-10 w-full max-h-[min(400px,88vw)] sm:max-h-[400px] lg:max-h-[min(580px,74vh)] xl:max-h-[min(620px,76vh)]"
             >
-              <div className="relative overflow-hidden rounded-2xl bg-white shadow-[0_36px_72px_-36px_rgba(15,23,42,0.28)] ring-1 ring-slate-200/80">
+              <div className="relative overflow-hidden rounded-xl bg-white shadow-[0_28px_72px_-36px_rgba(15,23,42,0.28)] ring-1 ring-slate-200/80 sm:rounded-2xl">
                 <Image
                   src={heroMds}
                   alt="Profissional com notebook; métricas de checkout e vendas em interface moderna — composição promocional"
                   priority
-                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 72vw, 54vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 72vw, 54vw"
                   className="block h-auto w-full object-cover object-center"
                 />
                 <div

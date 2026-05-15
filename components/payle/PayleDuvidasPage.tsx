@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { payleTheme } from "./payleTheme";
+import { payleDisplayedPlanPrices, payleTheme } from "./payleTheme";
 import { PayleSiteChrome } from "./PayleSiteChrome";
 import {
   PaylePageLinks,
@@ -45,7 +45,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "Como funcionam planos e valores?",
-    a: "Os planos (Starter, Scale e Enterprise) acompanham o estágio do seu checkout. Valores e limites são alinhados com o time comercial conforme volume, integrações e necessidade de suporte."
+    a: `Starter (${payleDisplayedPlanPrices.starterMonthly}) e Scale (${payleDisplayedPlanPrices.scaleMonthly}) combinam mensalidade e faixas de taxa sobre transação (referências ilustrativas na página de planos e no comparativo). O ganho costuma estar na negociação da taxa frente ao adquirente atual. Sem plano gratuito self-service. Enterprise sob consulta (SSO, SLAs e multi-marca).`
   }
 ];
 

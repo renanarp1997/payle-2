@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 52" role="img">
+  <title>Dom Pagamentos</title>
+  <text
+    x="110"
+    y="22"
+    text-anchor="middle"
+    font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif"
+    font-size="15"
+    font-weight="800"
+    fill="#0f172a"
+    letter-spacing="-0.03em"
+  >
+    Dom
+  </text>
+  <text
+    x="110"
+    y="41"
+    text-anchor="middle"
+    font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif"
+    font-size="12"
+    font-weight="700"
+    fill="#475569"
+    letter-spacing="-0.02em"
+  >
+    Pagamentos
+  </text>
+</svg>

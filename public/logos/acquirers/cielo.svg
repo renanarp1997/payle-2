@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 48" role="img">
+  <title>Cielo</title>
+  <text
+    x="100"
+    y="32"
+    text-anchor="middle"
+    font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif"
+    font-size="24"
+    font-weight="800"
+    fill="#003da5"
+    letter-spacing="-0.04em"
+  >
+    cielo
+  </text>
+</svg>

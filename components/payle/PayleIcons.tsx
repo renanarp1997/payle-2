@@ -278,6 +278,24 @@ export function IconLayers(props: IconProps) {
   );
 }
 
+/** Bolha estilo WhatsApp — cor via `currentColor` */
+export function IconWhatsApp(props: IconProps) {
+  const p = baseProps(props);
+  return (
+    <svg {...p}>
+      <path
+        d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 0115.61-9.36A8.5 8.5 0 0121 11.5Z"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinejoin="round"
+      />
+      <circle cx="9" cy="11.75" r="1" fill="currentColor" />
+      <circle cx="12" cy="11.75" r="1" fill="currentColor" />
+      <circle cx="15" cy="11.75" r="1" fill="currentColor" />
+    </svg>
+  );
+}
+
 export function IconMail(props: IconProps) {
   const p = baseProps(props);
   return (

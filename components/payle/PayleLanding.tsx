@@ -1,10 +1,15 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { ComponentType, ReactNode, SVGProps } from "react";
+import { ComponentType, ReactNode, SVGProps, useState } from "react";
 import Image from "next/image";
 import checkoutHeroImg from "@/assets/MDS.png";
-import { payleTheme } from "./payleTheme";
+import { payleDisplayedPlanPrices, payleTheme } from "./payleTheme";
+import type { PaylePlanName } from "./paylePlanModel";
+import { PaylePlanPricingCard } from "./PaylePlanPricingCard";
+import { payleCommercialWhatsAppUrl } from "./payleWhatsAppCommercial";
+import { payleAcquirers, PAYLE_ACQUIRERS_PT_LIST } from "./payleAcquirers";
+import { PayleAcquirerCarousel } from "./PayleAcquirerCarousel";
 import { PayleLandingHero } from "./PayleLandingHero";
 import { PayleSiteChrome } from "./PayleSiteChrome";
 import {
@@ -20,7 +25,7 @@ import {
   IconCardLock,
   IconCheck,
   IconLayers,
-  IconMail,
+  IconWhatsApp,
   IconPanel,
   IconPlug,
   IconSpark,
@@ -37,7 +42,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "Quais processadores já conversam nativamente com a Payle?",
-    a: "Há integração nativa com Asaas, Mercado Pago, PagSeguro, Efi, Stone, Cielo, Pagar.me, Appmax e Dom Pagamentos — todas homologadas no produto."
+    a: `Há integração nativa com ${PAYLE_ACQUIRERS_PT_LIST} — todas homologadas no produto.`
   },
   {
     q: "Onde posso usar o checkout Payle?",
@@ -49,7 +54,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "Como funcionam planos e valores?",
-    a: "Os planos (Starter, Scale e Enterprise) acompanham o estágio do seu checkout. Valores e limites são alinhados com o time comercial conforme volume, integrações e necessidade de suporte."
+    a: `Starter (${payleDisplayedPlanPrices.starterMonthly}) e Scale (${payleDisplayedPlanPrices.scaleMonthly}) publicam mensalidade mais faixas de taxa sobre transação (referências ilustrativas estão nos planos). O benefício econômico forte costuma ser taxa menor frente ao que você já liquida — consolidamos na proposta. Não há plano gratuito self-service. Enterprise continua sob consulta para SSO, SLAs e multi-marca.`
   }
 ];
 
@@ -79,17 +84,16 @@ const operationGallery: { src: string; alt: string; caption: string }[] = [
 const contactHeroImage =
   "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80";
 
-const psps = [
-  "Asaas",
-  "Mercado Pago",
-  "PagSeguro",
-  "Efi",
-  "Stone",
-  "Cielo",
-  "Pagar.me",
-  "Appmax",
-  "Dom Pagamentos"
-] as const;
+function openWhatsAppPrefill(nome: string, telefone: string) {
+  const text = [
+    `Olá! Sou *${nome.trim()}*.`,
+    `Meu telefone: ${telefone.trim()}`,
+    "",
+    "Gostaria de validar o checkout com a identidade da minha marca."
+  ].join("\n");
+  window.open(payleCommercialWhatsAppUrl(text), "_blank", "noopener,noreferrer");
+}
+
 
 const integrationGroups: { title: string; body: string; Icon: SvgIcon }[] = [
   { title: "E-commerce", body: "Shopify e WooCommerce para sua loja online.", Icon: IconLayers },
@@ -110,7 +114,7 @@ const features: { title: string; body: string; Icon: SvgIcon }[] = [
   },
   {
     title: "Adquirentes nativos",
-    body: "Integração nativa com Asaas, Mercado Pago, PagSeguro, Efi, Stone, Cielo, Pagar.me, Appmax e Dom Pagamentos — homologadas e mantidas pelo produto.",
+    body: `Integração nativa com ${PAYLE_ACQUIRERS_PT_LIST} — homologadas e mantidas pelo produto.`,
     Icon: IconBolt
   },
   {
@@ -138,14 +142,14 @@ const features: { title: string; body: string; Icon: SvgIcon }[] = [
 const stats: { k: string; v: string; d: string; Icon: SvgIcon }[] = [
   {
     k: "PSPs nativos",
-    v: "9",
-    d: "Asaas, Mercado Pago, PagSeguro, Efi, Stone, Cielo, Pagar.me, Appmax e Dom Pagamentos.",
+    v: `${payleAcquirers.length}`,
+    d: `${PAYLE_ACQUIRERS_PT_LIST}.`,
     Icon: IconBolt
   },
   {
     k: "Onde você vende",
     v: "4+",
-    d: "Shopify, WooCommerce, Educe (LMS), Bling e Tiny — além do modo standalone para infoproduto.",
+    d: "Shopify, WooCommerce, Educe (LMS) e modo standalone para infoproduto — canais onde a jornada de compra converge no checkout Payle.",
     Icon: IconLayers
   },
   {
@@ -157,30 +161,26 @@ const stats: { k: string; v: string; d: string; Icon: SvgIcon }[] = [
 ];
 
 const plans: {
-  name: string;
+  name: PaylePlanName;
   price: string;
-  desc: string;
   highlight: boolean;
   Icon: SvgIcon;
 }[] = [
   {
     name: "Starter",
-    price: "Consulte",
-    desc: "Para estruturar oferta, funil inicial e checkout em produção com governança.",
+    price: payleDisplayedPlanPrices.starterMonthly,
     highlight: false,
     Icon: IconSpark
   },
   {
     name: "Scale",
-    price: "Consulte",
-    desc: "Maior volume, prioridade de suporte e pacote completo de tracking e recuperação.",
+    price: payleDisplayedPlanPrices.scaleMonthly,
     highlight: true,
     Icon: IconLayers
   },
   {
     name: "Enterprise",
-    price: "Sob consulta",
-    desc: "Múltiplas marcas, SSO, SLAs, personalização de checkout, pixels e integrações dedicadas.",
+    price: payleDisplayedPlanPrices.enterprise,
     highlight: false,
     Icon: IconTerminal
   }
@@ -204,6 +204,8 @@ function SectionLink({ href, children }: { href: string; children: ReactNode }) 
 export function PayleLanding() {
   const t = payleTheme;
   const { reduce, viewport, stagger, fadeUp, scaleIn, ease } = usePayleMotion();
+  const [nomeContato, setNomeContato] = useState("");
+  const [telefoneContato, setTelefoneContato] = useState("");
 
   const container: Variants = {
     hidden: {},
@@ -212,7 +214,7 @@ export function PayleLanding() {
 
   return (
     <PayleSiteChrome>
-      <section className="relative overflow-x-hidden overflow-y-visible bg-white pb-24 pt-12 sm:pb-32 sm:pt-16 lg:pb-36 lg:pt-20">
+      <section className="relative overflow-x-hidden overflow-y-visible bg-white pb-20 pt-8 sm:pb-32 sm:pt-16 lg:pb-36 lg:pt-20">
         <PayleLandingHero />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -221,7 +223,7 @@ export function PayleLanding() {
             initial="hidden"
             whileInView="show"
             viewport={viewport}
-            className="mt-16 grid gap-5 sm:grid-cols-3 sm:gap-6 sm:mt-20 lg:mt-24"
+            className="mt-12 grid gap-4 sm:mt-20 sm:grid-cols-3 sm:gap-6 lg:mt-24"
           >
             {stats.map((stat) => (
               <motion.div
@@ -346,21 +348,7 @@ export function PayleLanding() {
             className="mt-12"
           >
             <p className={t.integrationSubhead}>Adquirentes</p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {psps.map((name, i) => (
-                <motion.span
-                  key={name}
-                  className={t.integrationPill}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: reduce ? 0 : i * 0.03 }}
-                  whileHover={reduce ? undefined : { y: -2, borderColor: "rgba(59,130,246,0.4)" }}
-                >
-                  {name}
-                </motion.span>
-              ))}
-            </div>
+            <PayleAcquirerCarousel acquirers={payleAcquirers} className="mt-4 w-full" />
           </motion.div>
 
           <motion.div
@@ -462,12 +450,12 @@ export function PayleLanding() {
           variants={fadeUp}
           className="relative mx-auto w-full max-w-md justify-self-center sm:max-w-lg lg:mx-0 lg:max-w-none"
         >
-          <div className="relative overflow-hidden rounded-2xl bg-slate-950/5 shadow-[0_28px_70px_-34px_rgba(15,23,42,0.28)] ring-1 ring-slate-200/70">
+          <div className="relative overflow-hidden rounded-xl bg-slate-950/5 shadow-[0_22px_56px_-28px_rgba(15,23,42,0.26)] ring-1 ring-slate-200/70 sm:rounded-2xl">
             <Image
               src={checkoutHeroImg}
               alt="Profissional usando notebook em ambiente de trabalho; checkout com métricas e conversão — ilustração promocional Payle"
-              sizes="(max-width: 1024px) 92vw, 44vw"
-              className="block h-auto w-full object-cover object-center"
+              sizes="(max-width: 640px) 96vw, (max-width: 1024px) 90vw, 44vw"
+              className="block h-auto w-full max-h-[min(268px,70vw)] object-cover object-[center_28%] sm:max-h-[min(320px,62vw)] lg:max-h-[min(520px,72vh)]"
             />
           </div>
         </motion.div>
@@ -481,7 +469,7 @@ export function PayleLanding() {
             <SectionHeader
               kicker="Planos"
               title="Escale conforme a maturidade da operação"
-              lead="Planos alinhados ao estágio do seu checkout: valores e escopo são definidos com o time comercial, conforme volume, integrações e suporte."
+              lead={`Mensalidades de referência ${payleDisplayedPlanPrices.starterMonthly} e ${payleDisplayedPlanPrices.scaleMonthly}, com modelo híbrido que prioriza taxa efetiva por transação. Sem plano gratuito em produção. Enterprise sob contrato bilateral — compare na página dedicada aos planos.`}
               align="center"
             />
             <SectionLink href="/planos">Comparar planos</SectionLink>
@@ -492,41 +480,18 @@ export function PayleLanding() {
             initial="hidden"
             whileInView="show"
             viewport={viewport}
-            className="mt-14 grid gap-6 lg:grid-cols-3"
+            className="mt-14 grid gap-7 lg:grid-cols-3 lg:gap-8"
           >
             {plans.map((plan) => (
-              <motion.div
+              <PaylePlanPricingCard
                 key={plan.name}
                 variants={scaleIn}
-                whileHover={reduce ? undefined : { y: -8 }}
-                className={plan.highlight ? t.planCardHi : t.planCard}
-              >
-                {plan.highlight && (
-                  <motion.div
-                    className="pointer-events-none absolute inset-0 opacity-30"
-                    animate={reduce ? undefined : { backgroundPosition: ["0% 0%", "100% 100%"] }}
-                    transition={{ duration: 8, repeat: Infinity, repeatType: "reverse" }}
-                    style={{ backgroundImage: t.planHiShimmer, backgroundSize: "200% 200%" }}
-                  />
-                )}
-                <motion.div className={t.planIconBox} whileHover={reduce ? undefined : { rotate: 4 }}>
-                  <plan.Icon className="h-5 w-5" />
-                </motion.div>
-                <h3 className={t.planTitle}>{plan.name}</h3>
-                <p className={t.planPrice}>{plan.price}</p>
-                <p className={t.planDesc}>{plan.desc}</p>
-                <motion.a
-                  href="#contato"
-                  className={`relative mt-auto inline-flex w-full items-center justify-center gap-2 rounded-full py-2.5 text-center text-sm font-semibold ${
-                    plan.highlight ? t.planCtaHi : t.planCtaLo
-                  }`}
-                  whileHover={reduce ? undefined : { scale: 1.02 }}
-                  whileTap={reduce ? undefined : { scale: 0.98 }}
-                >
-                  Falar sobre {plan.name}
-                  <IconArrowRight className="h-4 w-4 opacity-80" />
-                </motion.a>
-              </motion.div>
+                name={plan.name}
+                monthlyDisplay={plan.price}
+                highlight={plan.highlight}
+                Icon={plan.Icon}
+                ctaHref="#contato"
+              />
             ))}
           </motion.div>
         </div>
@@ -591,40 +556,62 @@ export function PayleLanding() {
                 }
                 transition={{ duration: 2.5, repeat: Infinity }}
               >
-                <IconMail className="h-7 w-7" />
+                <IconWhatsApp className="h-7 w-7" />
               </motion.div>
               <h2 className={`mt-6 ${t.sectionTitle}`}>Validar o checkout com a identidade da sua marca?</h2>
               <p className={`${t.contactLead} lg:mx-0`}>
-                Informe seu e-mail corporativo. Retornamos com próximos passos, ambiente de avaliação quando aplicável
-                e proposta alinhada ao seu volume e às integrações necessárias.
+                Deixe seu nome e o WhatsApp. Abrimos uma conversa com o time para próximos passos, avaliação quando
+                aplicável e proposta alinhada ao seu volume e às integrações necessárias.
               </p>
               <motion.form
-                className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start"
-                onSubmit={(e) => e.preventDefault()}
+                className="mt-8 mx-auto flex max-w-xl flex-col gap-3 sm:justify-center lg:mx-0 lg:justify-start"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  openWhatsAppPrefill(nomeContato, telefoneContato);
+                }}
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ ...ease, delay: reduce ? 0 : 0.1 }}
               >
-                <motion.input
-                  type="email"
-                  required
-                  placeholder="nome.sobrenome@empresa.com.br"
-                  className={t.input}
-                  whileFocus={reduce ? undefined : { scale: 1.02 }}
-                />
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <motion.input
+                    name="nome"
+                    type="text"
+                    autoComplete="name"
+                    required
+                    value={nomeContato}
+                    onChange={(e) => setNomeContato(e.target.value)}
+                    placeholder="Nome completo"
+                    className={`${t.input} min-w-0`}
+                    whileFocus={reduce ? undefined : { scale: 1.02 }}
+                  />
+                  <motion.input
+                    name="telefone"
+                    type="tel"
+                    inputMode="tel"
+                    autoComplete="tel"
+                    required
+                    value={telefoneContato}
+                    onChange={(e) => setTelefoneContato(e.target.value)}
+                    placeholder="(11) 99999-9999"
+                    className={`${t.input} min-w-0`}
+                    whileFocus={reduce ? undefined : { scale: 1.02 }}
+                  />
+                </div>
                 <motion.button
                   type="submit"
-                  className={t.submit}
+                  className={`${t.submit} w-full shrink-0 sm:w-auto sm:self-start`}
                   whileHover={reduce ? undefined : { scale: 1.04 }}
                   whileTap={reduce ? undefined : { scale: 0.97 }}
                 >
-                  Solicitar retorno
+                  Conversar no WhatsApp
                   <IconArrowRight className="h-4 w-4" />
                 </motion.button>
               </motion.form>
               <p className={`mt-5 ${t.disclaimer}`}>
-                Ao enviar, você autoriza o contato da equipe Payle sobre produtos e serviços, conforme sua solicitação.
+                Ao continuar para o WhatsApp, você autoriza o contato da equipe Payle sobre produtos e serviços, conforme
+                sua solicitação.
               </p>
             </motion.div>
 

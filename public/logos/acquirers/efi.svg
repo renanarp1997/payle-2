@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 48" role="img">
+  <title>Efi</title>
+  <text
+    x="100"
+    y="34"
+    text-anchor="middle"
+    font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif"
+    font-size="30"
+    font-weight="900"
+    fill="#fe5000"
+  >
+    Efi
+  </text>
+</svg>
