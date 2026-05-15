@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { payleTheme } from "./payleTheme";
 import { PayleSiteChrome } from "./PayleSiteChrome";
 import {
-  CheckoutMockup,
   PaylePageLinks,
   PaylePageSection,
   PayleSubpageHero,
@@ -36,7 +35,7 @@ const checkoutBullets = [
 
 export function PayleCheckoutPage() {
   const t = payleTheme;
-  const { reduce, ease } = usePayleMotion();
+  const { reduce, ease, fadeUp } = usePayleMotion();
 
   return (
     <PayleSiteChrome>
@@ -46,6 +45,7 @@ export function PayleCheckoutPage() {
         accentWord="Payle"
         variant="checkout"
         visualId="checkout"
+        hideIllustration
         lead="Seu gateway permanece sob sua gestão; a página de pagamento integra marketing de forma nativa — pixels, jornadas e recuperação no mesmo fluxo, sem ferramenta paralela."
       />
 
@@ -83,7 +83,11 @@ export function PayleCheckoutPage() {
             ))}
           </ul>
         </motion.div>
-        <CheckoutMockup />
+        <motion.div
+          variants={fadeUp}
+          className="relative hidden min-h-[260px] lg:block"
+          aria-hidden
+        />
       </StorySection>
 
       <PaylePageSection className={t.sectionIntegrations} variant="default">

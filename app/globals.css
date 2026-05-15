@@ -91,6 +91,20 @@ button {
   }
 }
 
+/* Grade técnica bem leve — hero (desktop/mobile-friendly via background-size) */
+.payle-hero-tech-grid {
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.055) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+@media (min-width: 768px) {
+  .payle-hero-tech-grid {
+    background-size: 48px 48px;
+  }
+}
+
 .payle-ambient-diagonal {
   background-image: repeating-linear-gradient(
     -17deg,

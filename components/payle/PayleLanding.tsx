@@ -4,14 +4,13 @@ import { motion, type Variants } from "framer-motion";
 import { ComponentType, ReactNode, SVGProps } from "react";
 import Image from "next/image";
 import { payleTheme } from "./payleTheme";
+import { PayleLandingHero } from "./PayleLandingHero";
 import { PayleSiteChrome } from "./PayleSiteChrome";
 import {
-  CheckoutMockup,
   DashboardMockup,
   SectionAmbient,
   SectionHeader,
   StorySection,
-  TrustPill,
   usePayleMotion
 } from "./PayleVisuals";
 import {
@@ -212,76 +211,16 @@ export function PayleLanding() {
 
   return (
     <PayleSiteChrome>
-      {/* Hero */}
-      <section className="relative overflow-hidden pb-24 pt-16 sm:pb-32 sm:pt-24">
-        <SectionAmbient variant="hero" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
-          <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-16 xl:gap-20">
-            <motion.div variants={container} initial="hidden" animate="show" className={`min-w-0 ${t.heroMaxWidth}`}>
-              <motion.div variants={fadeUp} className="mb-8 flex flex-wrap gap-2">
-                <TrustPill>Gateway sob sua gestão</TrustPill>
-                <TrustPill>Liquidação PIX ágil</TrustPill>
-                <TrustPill>Atribuição e métricas</TrustPill>
-              </motion.div>
+      <section className="relative overflow-x-hidden overflow-y-visible bg-white pb-24 pt-12 sm:pb-32 sm:pt-16 lg:pb-36 lg:pt-20">
+        <PayleLandingHero />
 
-              <motion.p variants={fadeUp} className={t.badge}>
-                <motion.span
-                  animate={reduce ? undefined : { rotate: [0, 10, -6, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <IconSpark className={`h-4 w-4 ${t.badgeSpark}`} />
-                </motion.span>
-                Checkout com identidade da sua marca — além do template genérico
-              </motion.p>
-
-              <motion.h1 variants={fadeUp} className={t.h1}>
-                O ponto em que o cliente{" "}
-                <span className={t.h1Pix}>conclui a compra com confiança</span>
-              </motion.h1>
-
-              <motion.p variants={fadeUp} className={t.heroLead}>
-                Conecte PIX, cartão e boleto ao gateway que você já utiliza. Uma experiência alinhada à sua marca, com
-                medição de funil e recuperação de carrinho — sem dispersar indicadores em ferramentas paralelas.
-              </motion.p>
-
-              <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
-                <motion.a
-                  href="#contato"
-                  className={t.btnPrimary}
-                  whileHover={reduce ? undefined : { scale: 1.03, y: -1 }}
-                  whileTap={reduce ? undefined : { scale: 0.97 }}
-                >
-                  Falar com especialistas
-                  <IconArrowRight className="h-4 w-4" />
-                </motion.a>
-                <motion.a
-                  href="/checkout"
-                  className={t.btnSecondary}
-                  whileHover={reduce ? undefined : { scale: 1.02, borderColor: t.btnSecondaryHoverBorder }}
-                  whileTap={reduce ? undefined : { scale: 0.98 }}
-                >
-                  <IconTerminal className={`h-4 w-4 ${t.accent}`} />
-                  Ver jornada de checkout
-                </motion.a>
-              </motion.div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ ...ease, delay: reduce ? 0 : 0.15 }}
-              className={`relative ${t.heroMockFrame}`}
-            >
-              <CheckoutMockup />
-            </motion.div>
-          </div>
-
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={container}
             initial="hidden"
             whileInView="show"
             viewport={viewport}
-            className="mt-20 grid gap-5 sm:grid-cols-3 sm:gap-6"
+            className="mt-16 grid gap-5 sm:grid-cols-3 sm:gap-6 sm:mt-20 lg:mt-24"
           >
             {stats.map((stat) => (
               <motion.div
@@ -518,9 +457,11 @@ export function PayleLanding() {
           </ul>
           <SectionLink href="/checkout">Detalhes da experiência de checkout</SectionLink>
         </motion.div>
-        <motion.div variants={fadeUp} className="relative max-w-lg justify-self-center lg:max-w-none">
-          <CheckoutMockup />
-        </motion.div>
+        <motion.div
+          variants={fadeUp}
+          className="relative hidden min-h-[260px] max-w-lg justify-self-center lg:block lg:max-w-none"
+          aria-hidden
+        />
       </StorySection>
 
       {/* Planos */}

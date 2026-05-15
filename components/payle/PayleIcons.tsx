@@ -162,6 +162,33 @@ export function IconActivity(props: IconProps) {
   );
 }
 
+/** Cartão de crédito — ícone minimalista (hero flutuante) */
+export function IconCreditCard(props: IconProps) {
+  const p = baseProps(props);
+  return (
+    <svg {...p}>
+      <rect x="2.5" y="5" width="19" height="14" rx="2.5" stroke="currentColor" strokeWidth="1.75" />
+      <path d="M2.5 10h19" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+      <rect x="5.5" y="14" width="6" height="2.25" rx="0.5" fill="currentColor" opacity="0.35" />
+    </svg>
+  );
+}
+
+/** Código de barras minimalista */
+export function IconBarcode(props: IconProps) {
+  const p = baseProps(props);
+  return (
+    <svg {...p}>
+      <path
+        d="M5 6v12M7 6v12M9 8v8M11 6v12M13 9v6M15 6v12M17 7v10M19 6v12"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 export function IconWallet(props: IconProps) {
   const p = baseProps(props);
   return (
@@ -205,6 +232,24 @@ export function IconSpark(props: IconProps) {
         strokeLinejoin="round"
       />
       <path d="M18 14l.8 2.2L21 17l-2.2.8L18 20l-.8-2.2L15 17l2.2-.8L18 14Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+/** "+" em tile azul — badge destacado do hero (referência visual) */
+export function IconPlusBadge(props: IconProps) {
+  const { className, ...rest } = props;
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className ?? "h-5 w-5"}
+      aria-hidden
+      {...rest}
+    >
+      <rect width="20" height="20" rx="5.5" fill="#2563EB" />
+      <path d="M10 6.25v7.5M6.25 10h7.5" stroke="white" strokeWidth="1.85" strokeLinecap="round" />
     </svg>
   );
 }

@@ -2,14 +2,7 @@
 
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { ReactNode, useId } from "react";
-import {
-  HeroGlowOrb,
-  IconActivity,
-  IconArrowRight,
-  IconCheck,
-  IconPayleMark,
-  IconWallet
-} from "./PayleIcons";
+import { IconActivity, IconArrowRight, IconCheck, IconWallet } from "./PayleIcons";
 import { payleTheme } from "./payleTheme";
 import type { PayleNavVisualId } from "./payleNavConfig";
 import { PayleHeroIllustration } from "./PaylePageIllustrations";
@@ -302,198 +295,23 @@ export function SparklineCard({ className = "" }: { className?: string }) {
   );
 }
 
-export function TrustPill({ children }: { children: ReactNode }) {
+export function TrustPill({
+  children,
+  variant = "default"
+}: {
+  children: ReactNode;
+  /** Hero referência: pills verdes claras + texto verde escuro */
+  variant?: "default" | "hero";
+}) {
+  const cls =
+    variant === "hero"
+      ? "inline-flex items-center gap-1.5 rounded-full border border-emerald-200/90 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-900 shadow-sm"
+      : "inline-flex items-center gap-1.5 rounded-full border border-slate-200/90 bg-white/80 px-3 py-1 text-xs font-medium text-slate-600 shadow-sm backdrop-blur-sm";
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/90 bg-white/80 px-3 py-1 text-xs font-medium text-slate-600 shadow-sm backdrop-blur-sm">
-      <IconCheck className="h-3.5 w-3.5 text-emerald-500" />
+    <span className={cls}>
+      <IconCheck className={`h-3.5 w-3.5 shrink-0 ${variant === "hero" ? "text-emerald-600" : "text-emerald-500"}`} />
       {children}
     </span>
-  );
-}
-
-export function CheckoutMockup({ className = "" }: { className?: string }) {
-  const t = payleTheme;
-  const reduce = useReducedMotion();
-  const orbId = useId().replace(/:/g, "");
-
-  return (
-    <motion.div
-      className={`relative ${className}`}
-      animate={reduce ? undefined : { y: [0, -8, 0] }}
-      transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-    >
-      <motion.div
-        className="pointer-events-none absolute -inset-8 flex items-center justify-center"
-        animate={reduce ? undefined : { scale: [1, 1.05, 1], opacity: [0.45, 0.65, 0.45] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <HeroGlowOrb gradientId={orbId} palette="white-blue" className="h-64 w-64 blur-2xl" />
-      </motion.div>
-
-      <motion.div
-        className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white/95 shadow-[0_32px_80px_-28px_rgba(37,99,235,0.22)] ring-1 ring-slate-900/[0.04] backdrop-blur-sm"
-        whileHover={
-          reduce
-            ? undefined
-            : {
-                y: -4,
-                boxShadow: "0 40px 90px -32px rgba(37,99,235,0.28), 0 0 0 1px rgba(59,130,246,0.08)"
-              }
-        }
-        transition={{ type: "spring", stiffness: 400, damping: 28 }}
-      >
-        <motion.div
-          className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/60 to-transparent"
-          animate={reduce ? undefined : { opacity: [0.4, 1, 0.4] }}
-          transition={{ duration: 3, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-emerald-400/20 blur-3xl"
-          animate={reduce ? undefined : { scale: [1, 1.15, 1] }}
-          transition={{ duration: 6, repeat: Infinity }}
-        />
-
-        <motion.div
-          className="absolute -left-20 bottom-24 z-20 hidden w-44 sm:block"
-          initial={{ opacity: 0, x: -12 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={
-            reduce
-              ? { delay: 0.3, duration: 0.5, ease }
-              : { delay: 0.3, duration: 0.5, ease, y: { duration: 5, repeat: Infinity, ease: "easeInOut" } }
-          }
-          animate={reduce ? undefined : { y: [0, -5, 0] }}
-        >
-          <FloatingCard float={false} className="!border-emerald-100/80 !bg-white/95 !p-3">
-            <div className="flex items-center gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600">
-                <IconCheck className="h-4 w-4" />
-              </span>
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-              >
-                <p className="text-[10px] font-medium text-slate-500">PIX aprovado</p>
-                <p className="text-sm font-semibold text-slate-900">R$ 1.247,00</p>
-              </motion.div>
-            </div>
-          </FloatingCard>
-        </motion.div>
-
-        <motion.div
-          className="absolute -right-4 top-20 z-20 hidden w-40 md:block"
-          initial={{ opacity: 0, x: 12 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          animate={reduce ? undefined : { y: [0, 6, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-        >
-          <FloatingCard float className="!p-3">
-            <p className="text-[10px] font-medium text-slate-500">Conversão</p>
-            <p className="text-lg font-semibold text-blue-600">+18,4%</p>
-          </FloatingCard>
-        </motion.div>
-
-        <motion.div
-          className="flex h-11 items-center gap-2 border-b border-slate-100 bg-slate-50/90 px-3 backdrop-blur-sm"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <span className="flex gap-1.5" aria-hidden>
-            <span className="h-2 w-2 rounded-full bg-slate-300" />
-            <span className="h-2 w-2 rounded-full bg-slate-300" />
-            <span className="h-2 w-2 rounded-full bg-slate-300" />
-          </span>
-          <motion.div
-            className={`ml-1 flex min-w-0 items-center gap-1.5 text-xs font-semibold ${t.logoWord}`}
-            whileHover={{ scale: 1.02 }}
-          >
-            <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ${t.logoMark}`}>
-              <IconPayleMark className="h-3.5 w-3.5" />
-            </span>
-            pay<span className={t.logoAccent}>le</span>
-          </motion.div>
-        </motion.div>
-
-        <motion.p
-          className="bg-slate-900 py-1.5 text-center font-mono text-[10px] font-medium tracking-wide text-emerald-300/90"
-          animate={
-            reduce
-              ? undefined
-              : {
-                  boxShadow: [
-                    "inset 0 -1px 0 0 rgba(34,197,94,0)",
-                    "inset 0 -1px 0 0 rgba(34,197,94,0.5)",
-                    "inset 0 -1px 0 0 rgba(34,197,94,0)"
-                  ]
-                }
-          }
-          transition={{ duration: 3, repeat: Infinity }}
-        >
-          payment_approved · gateway_connected
-        </motion.p>
-
-        <motion.div
-          className="grid gap-4 p-4 sm:grid-cols-2 sm:p-5"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          variants={{ show: { transition: { staggerChildren: 0.06 } } }}
-        >
-          <motion.div variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0 } }} className="space-y-2.5">
-            {(["Nome", "E-mail", "CPF", "WhatsApp"] as const).map((label) => (
-              <div key={label} className="space-y-1">
-                <p className="text-[10px] font-medium uppercase tracking-wide text-slate-500">{label}</p>
-                <motion.div className="h-8 rounded-xl border border-slate-200/90 bg-gradient-to-b from-white to-slate-50/80" />
-              </div>
-            ))}
-            <motion.div
-              className="flex items-center justify-center gap-1 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 py-2.5 text-xs font-semibold text-white shadow-lg shadow-blue-600/25"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Finalizar compra
-              <IconArrowRight className="h-3.5 w-3.5" />
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0 } }}
-            className="flex flex-col gap-3 rounded-xl border border-slate-100 bg-gradient-to-br from-slate-50/90 to-white p-3.5"
-          >
-            <p className="text-xs font-semibold text-slate-900">Resumo</p>
-            <motion.div
-              className="rounded-lg border border-emerald-200/80 bg-emerald-50/50 px-3 py-2"
-              animate={reduce ? undefined : { boxShadow: ["0 0 0 0 rgba(34,197,94,0)", "0 0 20px -4px rgba(34,197,94,0.25)", "0 0 0 0 rgba(34,197,94,0)"] }}
-              transition={{ duration: 4, repeat: Infinity }}
-            >
-              <p className={`text-[11px] font-semibold ${t.heroPixText}`}>PIX · aprovação instantânea</p>
-            </motion.div>
-            <motion.div className="space-y-2 text-[11px] text-slate-600">
-              {["Subtotal", "Frete", "Total"].map((row, i) => (
-                <div
-                  key={row}
-                  className={`flex justify-between gap-2 ${i === 2 ? "border-t border-slate-200 pt-2 font-semibold text-slate-900" : ""}`}
-                >
-                  <span>{row}</span>
-                  <span className={`h-2 rounded bg-slate-200 ${i === 2 ? "w-20" : "w-14"}`} />
-                </div>
-              ))}
-            </motion.div>
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          className="h-1 w-full bg-gradient-to-r from-blue-600 via-emerald-400 to-blue-600"
-          style={{ backgroundSize: "200% 100%" }}
-          animate={reduce ? undefined : { backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-        />
-      </motion.div>
-    </motion.div>
   );
 }
 
@@ -596,6 +414,7 @@ export function PayleSubpageHero({
   variant = "default",
   accentWord,
   visualId,
+  hideIllustration = false,
   children
 }: {
   title: string;
@@ -604,6 +423,8 @@ export function PayleSubpageHero({
   variant?: "hero" | "product" | "checkout" | "contact" | "default";
   accentWord?: string;
   visualId: PayleNavVisualId;
+  /** Coluna visual em branco (mantém a grade no desktop). */
+  hideIllustration?: boolean;
   children?: ReactNode;
 }) {
   const t = payleTheme;
@@ -655,9 +476,13 @@ export function PayleSubpageHero({
           animate={{ opacity: 1, scale: 1 }}
           transition={{ ...ease, delay: reduce ? 0 : 0.08 }}
         >
-          <div className="rounded-[1.75rem] border border-white/90 bg-white/75 p-4 shadow-[0_28px_60px_-28px_rgba(15,23,42,0.2)] ring-1 ring-slate-900/[0.05] backdrop-blur-xl sm:p-5">
-            <PayleHeroIllustration variant={visualId} />
-          </div>
+          {hideIllustration ? (
+            <div className="hidden min-h-[280px] w-full lg:block" aria-hidden />
+          ) : (
+            <div className="rounded-[1.75rem] border border-white/90 bg-white/75 p-4 shadow-[0_28px_60px_-28px_rgba(15,23,42,0.2)] ring-1 ring-slate-900/[0.05] backdrop-blur-xl sm:p-5">
+              <PayleHeroIllustration variant={visualId} />
+            </div>
+          )}
         </motion.div>
       </motion.div>
     </section>
