@@ -166,7 +166,7 @@ export function PayleLandingHero() {
         aria-hidden
       />
 
-      <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-8 px-4 pb-12 pt-10 max-[380px]:px-3 sm:gap-12 sm:px-6 sm:pb-16 sm:pt-14 md:gap-14 lg:grid-cols-12 lg:items-center lg:gap-10 lg:px-8 lg:pb-24 lg:pt-20 xl:gap-14">
+      <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-8 px-4 pb-8 pt-8 max-[380px]:px-3 sm:gap-12 sm:px-6 sm:pb-16 sm:pt-14 md:gap-14 lg:grid-cols-12 lg:items-center lg:gap-10 lg:px-8 lg:pb-24 lg:pt-20 xl:gap-14">
         <motion.div
           variants={container}
           initial="hidden"

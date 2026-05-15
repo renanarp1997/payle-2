@@ -123,7 +123,7 @@ export function PayleProdutoPage() {
           initial="hidden"
           whileInView="show"
           viewport={viewport}
-          className="mt-14 grid items-stretch gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+          className="mt-8 grid items-stretch gap-5 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
         >
           {pillars.map((item) => (
             <motion.li
@@ -153,14 +153,14 @@ export function PayleProdutoPage() {
         />
       </PaylePageSection>
 
-      <PaylePageSection className="border-y border-slate-200/60 bg-white py-24 sm:py-32" variant="default">
+      <PaylePageSection className={t.sectionRecursos} variant="default">
         <SectionHeader
           kicker="Contexto"
           title="Um checkout estável para quem vende todos os dias"
           lead="Da loja ao escritório: times que precisam de pagamentos confiáveis e visibilidade no funil — fotografias ilustrativas."
           align="center"
         />
-        <div className="mx-auto mt-12 max-w-6xl">
+        <div className="mx-auto mt-8 max-w-6xl sm:mt-12">
           <PayleEditorialGallery photos={produtoGalleryPhotos} columns={3} />
         </div>
       </PaylePageSection>

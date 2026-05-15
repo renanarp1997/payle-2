@@ -192,7 +192,7 @@ function SectionLink({ href, children }: { href: string; children: ReactNode }) 
   return (
     <motion.a
       href={href}
-      className={`mt-8 inline-flex items-center gap-1.5 text-sm font-semibold ${t.accent} underline decoration-blue-600/25 underline-offset-4 transition-colors hover:decoration-blue-600`}
+      className={`mt-6 inline-flex items-center gap-1.5 text-sm font-semibold ${t.accent} underline decoration-blue-600/25 underline-offset-4 transition-colors hover:decoration-blue-600 sm:mt-8`}
       whileHover={reduce ? undefined : { x: 3 }}
     >
       {children}
@@ -214,7 +214,7 @@ export function PayleLanding() {
 
   return (
     <PayleSiteChrome>
-      <section className="relative overflow-x-hidden overflow-y-visible bg-white pb-20 pt-8 sm:pb-32 sm:pt-16 lg:pb-36 lg:pt-20">
+      <section className="relative overflow-x-hidden overflow-y-visible bg-white pb-12 pt-6 sm:pb-32 sm:pt-16 lg:pb-36 lg:pt-20">
         <PayleLandingHero />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -223,7 +223,7 @@ export function PayleLanding() {
             initial="hidden"
             whileInView="show"
             viewport={viewport}
-            className="mt-12 grid gap-4 sm:mt-20 sm:grid-cols-3 sm:gap-6 lg:mt-24"
+            className="mt-8 grid gap-4 sm:mt-20 sm:grid-cols-3 sm:gap-6 lg:mt-24"
           >
             {stats.map((stat) => (
               <motion.div
@@ -266,7 +266,7 @@ export function PayleLanding() {
       </StorySection>
 
       {/* Operação */}
-      <section id="operacao" className="relative overflow-hidden border-y border-slate-200/60 bg-white py-24 sm:py-32">
+      <section id="operacao" className={`relative overflow-hidden ${t.sectionRecursos}`}>
         <SectionAmbient variant="default" />
         <motion.div
           className="relative mx-auto max-w-7xl px-4 sm:px-6"
@@ -284,7 +284,7 @@ export function PayleLanding() {
             <SectionLink href="/operacao">Conheça casos de operação</SectionLink>
           </motion.div>
 
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-5 sm:mt-14 sm:grid-cols-2 lg:grid-cols-4">
             {operationGallery.map((item, i) => (
               <motion.figure
                 key={item.src}
@@ -315,7 +315,7 @@ export function PayleLanding() {
               </motion.figure>
             ))}
           </div>
-          <p className="mt-8 text-center text-[11px] text-slate-400 lg:text-left">
+          <p className="mt-5 text-center text-[11px] text-slate-400 sm:mt-8 lg:text-left">
             Imagens ilustrativas ·{" "}
             <a
               href="https://unsplash.com/?utm_source=payle&utm_medium=referral"
@@ -345,7 +345,7 @@ export function PayleLanding() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewport}
             transition={ease}
-            className="mt-12"
+            className="mt-8 sm:mt-12"
           >
             <p className={t.integrationSubhead}>Adquirentes</p>
             <PayleAcquirerCarousel acquirers={payleAcquirers} className="mt-4 w-full" />
@@ -356,7 +356,7 @@ export function PayleLanding() {
             initial="hidden"
             whileInView="show"
             viewport={viewport}
-            className="mt-14 grid gap-5 sm:grid-cols-2 lg:gap-6"
+            className="mt-8 grid gap-5 sm:mt-14 sm:grid-cols-2 lg:gap-6"
           >
             {integrationGroups.map((g) => (
               <motion.div
@@ -392,7 +392,7 @@ export function PayleLanding() {
             initial="hidden"
             whileInView="show"
             viewport={viewport}
-            className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6"
+            className="mt-8 grid gap-5 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6"
           >
             {features.map((f) => (
               <motion.li
@@ -480,7 +480,7 @@ export function PayleLanding() {
             initial="hidden"
             whileInView="show"
             viewport={viewport}
-            className="mt-14 grid gap-7 lg:grid-cols-3 lg:gap-8"
+            className="mt-8 grid gap-7 sm:mt-14 lg:grid-cols-3 lg:gap-8"
           >
             {plans.map((plan) => (
               <PaylePlanPricingCard
@@ -516,7 +516,7 @@ export function PayleLanding() {
             <SectionLink href="/duvidas">Central de perguntas frequentes</SectionLink>
           </motion.div>
 
-          <div className="mx-auto mt-12 max-w-3xl">
+          <div className="mx-auto mt-8 max-w-3xl sm:mt-12">
             {faqs.map((item) => (
               <motion.div key={item.q} variants={fadeUp} whileHover={reduce ? undefined : { y: -2 }}>
                 <details className={t.faqDetails}>

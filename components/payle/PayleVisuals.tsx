@@ -415,6 +415,8 @@ export function PayleSubpageHero({
   accentWord,
   visualId,
   hideIllustration = false,
+  /** Reduz paddings/gaps e altura da ilustração em viewports estreitos (mantém desktop). */
+  tightMobileLayout = false,
   children
 }: {
   title: string;
@@ -425,6 +427,7 @@ export function PayleSubpageHero({
   visualId: PayleNavVisualId;
   /** Coluna visual em branco (mantém a grade no desktop). */
   hideIllustration?: boolean;
+  tightMobileLayout?: boolean;
   children?: ReactNode;
 }) {
   const t = payleTheme;
@@ -442,10 +445,16 @@ export function PayleSubpageHero({
   })();
 
   return (
-    <section className="relative overflow-hidden border-b border-slate-200/60 bg-gradient-to-b from-white via-slate-50/40 to-white pb-16 pt-14 sm:pb-20 sm:pt-16">
+    <section
+      className={`relative overflow-hidden border-b border-slate-200/60 bg-gradient-to-b from-white via-slate-50/40 to-white ${
+        tightMobileLayout ? "pb-5 pt-6 sm:pb-20 sm:pt-16" : "pb-8 pt-8 sm:pb-20 sm:pt-16"
+      }`}
+    >
       <SectionAmbient variant={variant} />
       <motion.div
-        className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 sm:gap-12 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(260px,400px)] lg:gap-14 xl:gap-16"
+        className={`relative mx-auto grid max-w-7xl items-center px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(260px,400px)] lg:gap-14 xl:gap-16 ${
+          tightMobileLayout ? "gap-4 sm:gap-12" : "gap-6 sm:gap-12"
+        }`}
         initial={{ opacity: 0, y: reduce ? 0 : 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={ease}
@@ -464,10 +473,10 @@ export function PayleSubpageHero({
               <span className={t.h1Pix}>{title}</span>
             )}
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg lg:mx-0">
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-600 sm:mt-6 sm:text-lg lg:mx-0">
             {lead}
           </p>
-          <div className="mt-8 lg:flex lg:justify-start">{children ?? <PayleSubpageActions />}</div>
+          <div className="mt-5 sm:mt-8 lg:flex lg:justify-start">{children ?? <PayleSubpageActions />}</div>
         </div>
 
         <motion.div
@@ -479,8 +488,12 @@ export function PayleSubpageHero({
           {hideIllustration ? (
             <div className="hidden min-h-[280px] w-full lg:block" aria-hidden />
           ) : (
-            <div className="rounded-[1.75rem] border border-white/90 bg-white/75 p-4 shadow-[0_28px_60px_-28px_rgba(15,23,42,0.2)] ring-1 ring-slate-900/[0.05] backdrop-blur-xl sm:p-5">
-              <PayleHeroIllustration variant={visualId} />
+            <div
+              className={`rounded-[1.75rem] border border-white/90 bg-white/75 shadow-[0_28px_60px_-28px_rgba(15,23,42,0.2)] ring-1 ring-slate-900/[0.05] backdrop-blur-xl ${
+                tightMobileLayout ? "p-3 sm:p-5" : "p-4 sm:p-5"
+              }`}
+            >
+              <PayleHeroIllustration variant={visualId} tightMobileHero={tightMobileLayout} />
             </div>
           )}
         </motion.div>
@@ -560,7 +573,7 @@ export function PaylePageLinks({
 
   return (
     <motion.div
-      className="mt-14 flex flex-wrap items-center justify-center gap-6 border-t border-slate-200/70 pt-10"
+      className="mt-8 flex flex-wrap items-center justify-center gap-4 border-t border-slate-200/70 pt-6 sm:mt-14 sm:gap-6 sm:pt-10"
       initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -606,7 +619,7 @@ export function StorySection({
           viewport={{ once: true, margin: "-80px" }}
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12 } } }}
         >
-          <div className="story-grid grid items-center gap-10 py-2 lg:grid-cols-2 lg:gap-16 lg:py-0 xl:gap-20">
+          <div className="story-grid grid items-center gap-5 py-0 sm:gap-10 sm:py-2 lg:grid-cols-2 lg:gap-16 lg:py-0 xl:gap-20">
             {children}
           </div>
         </motion.div>

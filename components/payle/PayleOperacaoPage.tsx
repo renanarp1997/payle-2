@@ -77,7 +77,7 @@ export function PayleOperacaoPage() {
         lead="Para operações que dependem de pedidos, campanhas e conciliação diárias — da loja ao ERP, incluindo lançamentos e educação online."
       />
 
-      <PaylePageSection className="border-y border-slate-200/60 bg-white py-24 sm:py-32" variant="default">
+      <PaylePageSection className={t.sectionRecursos} variant="default">
         <SectionHeader
           kicker="Quem usa"
           title="Feito para quem vende todo dia — não só para o slide da reunião"
@@ -85,7 +85,7 @@ export function PayleOperacaoPage() {
           align="center"
         />
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid gap-5 sm:mt-14 sm:grid-cols-2 lg:grid-cols-4">
           {operationGallery.map((item, i) => (
             <motion.figure
               key={item.src}
@@ -142,7 +142,7 @@ export function PayleOperacaoPage() {
           initial="hidden"
           whileInView="show"
           viewport={viewport}
-          className="mt-14 grid items-stretch gap-5 sm:grid-cols-3 sm:gap-6"
+          className="mt-8 grid items-stretch gap-5 sm:mt-14 sm:grid-cols-3 sm:gap-6"
         >
           {operationAngles.map((item) => (
             <motion.li

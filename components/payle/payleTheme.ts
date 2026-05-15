@@ -164,9 +164,9 @@ const brancoAzul: PayleTheme = {
   statLabel: "text-[11px] font-semibold uppercase tracking-[0.12em] text-blue-600",
   statValue: "mt-2.5 font-mono text-3xl font-semibold tabular-nums tracking-tight text-slate-900",
   statDesc: "mt-3 flex-1 text-sm leading-relaxed text-slate-500",
-  sectionProduct: "border-y border-slate-200/60 bg-gradient-to-b from-white via-slate-50/40 to-white py-24 sm:py-32",
+  sectionProduct: "border-y border-slate-200/60 bg-gradient-to-b from-white via-slate-50/40 to-white py-14 sm:py-32",
   sectionIntegrations:
-    "border-y border-slate-200/60 bg-gradient-to-b from-slate-50/80 via-white to-slate-50/60 py-24 sm:py-32",
+    "border-y border-slate-200/60 bg-gradient-to-b from-slate-50/80 via-white to-slate-50/60 py-14 sm:py-32",
   integrationPill:
     "rounded-full border border-slate-200/90 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm transition-colors duration-200 hover:border-blue-200 hover:bg-blue-50/60 hover:text-slate-900",
   integrationSubhead: "text-xs font-semibold uppercase tracking-[0.14em] text-blue-600",
@@ -182,8 +182,8 @@ const brancoAzul: PayleTheme = {
   apiList: "mt-6 space-y-4 text-sm leading-relaxed text-slate-600",
   productSvg:
     "relative z-[1] w-full max-w-[min(100%,22rem)] text-blue-500 drop-shadow-[0_20px_50px_-12px_rgba(37,99,235,0.18)] sm:max-w-md",
-  sectionRecursos: "border-y border-slate-200/60 bg-white py-24 sm:py-32",
-  sectionPlans: "border-y border-slate-200/60 bg-gradient-to-b from-slate-50/90 to-white py-24 sm:py-32",
+  sectionRecursos: "border-y border-slate-200/60 bg-white py-14 sm:py-32",
+  sectionPlans: "border-y border-slate-200/60 bg-gradient-to-b from-slate-50/90 to-white py-14 sm:py-32",
   recursosLead: "mt-3 max-w-2xl text-base leading-relaxed text-slate-600",
   recursosBolt: "hidden h-14 w-14 text-blue-200 sm:block",
   featureCard:
@@ -194,7 +194,7 @@ const brancoAzul: PayleTheme = {
   featureTitle: "relative mt-4 text-base font-semibold leading-snug tracking-tight text-slate-900",
   featureBody: "relative mt-2 flex-1 text-sm leading-relaxed text-slate-600",
   sectionApi:
-    "border-y border-slate-200/60 bg-gradient-to-b from-blue-50/40 via-white to-emerald-50/30 py-24 sm:py-32",
+    "border-y border-slate-200/60 bg-gradient-to-b from-blue-50/40 via-white to-emerald-50/30 py-14 sm:py-32",
   planLead: "mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-600",
   planCard:
     "relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-8 text-left shadow-[0_1px_2px_rgba(15,23,42,0.04)] ring-1 ring-slate-900/[0.02] transition-all duration-200 hover:border-slate-300 hover:shadow-lg",
@@ -211,7 +211,7 @@ const brancoAzul: PayleTheme = {
     "w-full rounded-full bg-blue-600 px-4 py-2.5 text-white shadow-md shadow-blue-600/20 transition-colors hover:bg-blue-500",
   planCtaLo:
     "w-full rounded-full border border-slate-300 bg-white px-4 py-2.5 text-slate-900 shadow-sm transition-colors hover:border-blue-300 hover:bg-slate-50",
-  sectionFaq: "border-y border-slate-200/60 bg-slate-50/40 py-24 sm:py-32",
+  sectionFaq: "border-y border-slate-200/60 bg-slate-50/40 py-14 sm:py-32",
   faqLead: "mt-3 max-w-2xl text-base leading-relaxed text-slate-600",
   faqDetails:
     "group mb-3 overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)] ring-1 ring-slate-900/[0.02] transition-shadow last:mb-0 open:shadow-md open:ring-blue-100/60 sm:mb-4 sm:last:mb-0",
@@ -219,7 +219,7 @@ const brancoAzul: PayleTheme = {
     "flex w-full cursor-pointer list-none items-center justify-between gap-4 px-4 py-4 text-left text-sm font-semibold text-slate-900 outline-none transition-colors hover:bg-slate-50/80 sm:px-5 sm:text-[15px] [&::-webkit-details-marker]:hidden",
   faqAnswer: "border-t border-slate-100 px-4 pb-5 pt-3 text-sm leading-relaxed text-slate-600 sm:px-5",
   sectionContact:
-    "border-t border-slate-200/60 bg-gradient-to-b from-blue-50/50 via-white to-emerald-50/20 py-24 sm:py-32",
+    "border-t border-slate-200/60 bg-gradient-to-b from-blue-50/50 via-white to-emerald-50/20 py-14 sm:py-32",
   contactIconBox:
     "mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-blue-200 bg-white text-blue-600 shadow-sm",
   contactPulse: [

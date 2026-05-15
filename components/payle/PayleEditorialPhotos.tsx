@@ -64,7 +64,7 @@ export function PayleEditorialGallery({
           </motion.figure>
         ))}
       </div>
-      {showCredit ? <PayleEditorialCredit centered className="mt-6" /> : null}
+      {showCredit ? <PayleEditorialCredit centered className="mt-4 sm:mt-6" /> : null}
     </div>
   );
 }

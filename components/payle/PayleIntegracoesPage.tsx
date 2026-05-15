@@ -74,20 +74,20 @@ export function PayleIntegracoesPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={ease}
-          className="mx-auto mt-12 max-w-3xl text-center"
+          className="mx-auto mt-8 max-w-3xl text-center sm:mt-12"
         >
           <p className={t.integrationSubhead}>Adquirentes</p>
           <PayleAcquirerCarousel acquirers={payleAcquirers} className="mt-6 w-full max-w-5xl lg:mx-auto lg:mt-5" />
         </motion.div>
 
-        <div className="mx-auto mt-16 max-w-6xl">
+        <div className="mx-auto mt-8 max-w-6xl sm:mt-16">
           <SectionHeader
             kicker="Ambientes"
             title="Onde as integrações fazem diferença no dia a dia"
             lead="Da área técnica ao comercial: ecossistemas que conversam com o checkout sem retrabalho manual — imagens ilustrativas."
             align="center"
           />
-          <div className="mt-10">
+          <div className="mt-6 sm:mt-10">
             <PayleEditorialGallery photos={integracoesGalleryPhotos} columns={3} />
           </div>
         </div>
@@ -97,7 +97,7 @@ export function PayleIntegracoesPage() {
           initial="hidden"
           whileInView="show"
           viewport={viewport}
-          className="mt-16 grid items-stretch gap-5 sm:grid-cols-2 sm:gap-6"
+          className="mt-8 grid items-stretch gap-5 sm:mt-16 sm:grid-cols-2 sm:gap-6"
         >
           {integrationGroups.map((g) => (
             <motion.li

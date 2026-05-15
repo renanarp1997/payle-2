@@ -87,8 +87,12 @@ function PlanosWhatsAppLead() {
   }
 
   return (
-    <section id="whatsapp-lead" aria-labelledby="whatsapp-lead-title" className={`relative overflow-hidden ${t.sectionContact}`}>
-      <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24">
+    <section
+      id="whatsapp-lead"
+      aria-labelledby="whatsapp-lead-title"
+      className="border-t border-slate-200/60 bg-gradient-to-b from-blue-50/50 via-white to-emerald-50/20 py-14 sm:py-32"
+    >
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <div className="mx-auto max-w-xl text-center">
           <p className={t.productKicker}>Contato imediato</p>
           <h2 id="whatsapp-lead-title" className={`mt-3 ${t.sectionTitle}`}>
@@ -101,7 +105,7 @@ function PlanosWhatsAppLead() {
 
         <form
           onSubmit={onSubmit}
-          className="mx-auto mt-10 max-w-lg rounded-2xl border border-slate-200/90 bg-white/95 p-6 shadow-[0_24px_55px_-44px_rgba(15,23,42,0.18)] ring-1 ring-slate-900/[0.04] sm:p-8"
+          className="mx-auto mt-8 max-w-lg rounded-2xl border border-slate-200/90 bg-white/95 p-6 shadow-[0_24px_55px_-44px_rgba(15,23,42,0.18)] ring-1 ring-slate-900/[0.04] sm:mt-10 sm:p-8"
         >
           <div className="space-y-5">
             <div>
@@ -171,10 +175,14 @@ export function PaylePlanosPage() {
           accentWord="escala"
           variant="default"
           visualId="planos"
+          tightMobileLayout
           lead={`Mensalidades acessíveis na entrada (${payleDisplayedPlanPrices.starterMonthly} ou ${payleDisplayedPlanPrices.scaleMonthly}), com modelo que reflete volumetria nas taxas de transação. Sem plano gratuito visível aqui — alinhamos tudo diretamente no comercial antes de ligar produção.`}
         />
 
-        <PaylePageSection className={t.sectionRecursos} variant="default">
+        <PaylePageSection
+          className="border-y border-slate-200/60 bg-white py-12 sm:py-32"
+          variant="default"
+        >
           <SectionHeader
             kicker="Por que a Payle importa"
             title="Resultados operacionais, não só recursos isolados"
@@ -182,7 +190,7 @@ export function PaylePlanosPage() {
             align="center"
           />
 
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-8 grid gap-5 sm:mt-14 sm:grid-cols-2 lg:grid-cols-5">
             {valueProps.map((item, idx) => (
               <motion.div
                 key={item.title}
@@ -203,7 +211,10 @@ export function PaylePlanosPage() {
           </div>
         </PaylePageSection>
 
-        <PaylePageSection className={t.sectionPlans} variant="default">
+        <PaylePageSection
+          className="border-y border-slate-200/60 bg-gradient-to-b from-slate-50/90 to-white py-12 sm:py-32"
+          variant="default"
+        >
           <SectionHeader
             kicker="Investimento"
             title="Três perfis claros para alinhar crescimento e governança"
@@ -216,7 +227,7 @@ export function PaylePlanosPage() {
             initial="hidden"
             whileInView="show"
             viewport={viewport}
-            className="mt-14 flex gap-6 overflow-x-auto scroll-smooth pb-2 pl-[max(0px,calc(env(safe-area-inset-left)))] [-ms-overflow-style:none] [scrollbar-width:thin] snap-x snap-mandatory md:grid md:gap-8 md:overflow-visible md:pb-0 md:pl-0 lg:grid-cols-3 [&::-webkit-scrollbar]:h-[6px] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-400/55"
+            className="mt-8 flex gap-6 overflow-x-auto scroll-smooth pb-2 pl-[max(0px,calc(env(safe-area-inset-left)))] [-ms-overflow-style:none] [scrollbar-width:thin] snap-x snap-mandatory sm:mt-14 md:grid md:gap-8 md:overflow-visible md:pb-0 md:pl-0 lg:grid-cols-3 [&::-webkit-scrollbar]:h-[6px] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-400/55"
           >
             {planTiers.map((plan) => (
               <div
@@ -239,7 +250,7 @@ export function PaylePlanosPage() {
             ))}
           </motion.div>
 
-          <div className="mx-auto mt-20 max-w-2xl text-center sm:mt-24">
+          <div className="mx-auto mt-8 max-w-2xl text-center sm:mt-24">
             <SectionHeader
               kicker="Comparativo"
               title="O que cada plano entrega para o seu e-commerce"
@@ -247,13 +258,13 @@ export function PaylePlanosPage() {
               align="center"
             />
           </div>
-          <PaylePlanComparisonTable className="mt-12 sm:mt-14" />
+          <PaylePlanComparisonTable className="mt-8 sm:mt-14" />
         </PaylePageSection>
 
         <PlanosWhatsAppLead />
 
-        <PaylePageSection className="border-t border-slate-200/60 bg-slate-50/40 py-14 sm:py-16" variant="default">
-          <div className="flex justify-center border-t border-slate-200/70 pt-10">
+        <PaylePageSection className="border-t border-slate-200/60 bg-slate-50/40 py-10 sm:py-16" variant="default">
+          <div className="flex justify-center border-t border-slate-200/70 pt-8 sm:pt-10">
             <a
               href="/duvidas"
               className={`inline-flex items-center gap-2 text-sm font-semibold ${t.footerLink}`}

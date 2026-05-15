@@ -97,12 +97,12 @@ export function PayleCheckoutPage() {
           lead="O mesmo fluxo em que o pagamento é concluído é onde growth e produto enxergam o funil — imagens ilustrativas."
           align="center"
         />
-        <div className="mx-auto mt-12 max-w-4xl">
+        <div className="mx-auto mt-8 max-w-4xl sm:mt-12">
           <PayleEditorialGallery photos={checkoutGalleryPhotos} columns={2} />
         </div>
       </PaylePageSection>
 
-      <PaylePageSection className="border-y border-slate-200/60 bg-white py-24 sm:py-32" variant="default">
+      <PaylePageSection className={t.sectionRecursos} variant="default">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}

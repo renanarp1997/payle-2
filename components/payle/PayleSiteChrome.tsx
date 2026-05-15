@@ -293,7 +293,7 @@ export function PayleSiteChrome({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={ease}
-          className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20"
+          className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20"
         >
           <motion.div
             className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12"

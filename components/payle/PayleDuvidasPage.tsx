@@ -71,12 +71,12 @@ export function PayleDuvidasPage() {
           align="center"
         />
 
-        <div className="mx-auto mt-12 max-w-4xl">
+        <div className="mx-auto mt-8 max-w-4xl sm:mt-12">
           <PayleEditorialGallery photos={duvidasGalleryPhotos} columns={2} />
         </div>
 
         <motion.div
-          className="mx-auto mt-14 max-w-3xl"
+          className="mx-auto mt-8 max-w-3xl sm:mt-14"
           variants={{ hidden: {}, show: { transition: { staggerChildren: reduce ? 0 : 0.06 } } }}
           initial="hidden"
           whileInView="show"

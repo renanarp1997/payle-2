@@ -102,7 +102,7 @@ export function PayleRecursosPage() {
           align="center"
         />
 
-        <div className="mx-auto mt-14 max-w-6xl">
+        <div className="mx-auto mt-8 max-w-6xl sm:mt-14">
           <PayleEditorialGallery photos={recursosGalleryPhotos} columns={3} />
         </div>
 
@@ -111,7 +111,7 @@ export function PayleRecursosPage() {
           initial="hidden"
           whileInView="show"
           viewport={viewport}
-          className="mt-16 grid items-stretch gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+          className="mt-8 grid items-stretch gap-5 sm:mt-16 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
         >
           {features.map((f) => (
             <motion.li

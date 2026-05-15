@@ -5,15 +5,21 @@ type Props = {
   variant: PayleNavVisualId;
   /** Preview no menu (altura fixa) */
   compact?: boolean;
+  /** Menos altura só em telas estreitas (hero páginas como /planos). */
+  tightMobileHero?: boolean;
   className?: string;
 };
 
 /** Ilustrações leves e editoriais — combinam com o tema azul/esmeralda da Payle */
-export function PayleHeroIllustration({ variant, compact, className = "" }: Props) {
+export function PayleHeroIllustration({ variant, compact, tightMobileHero, className = "" }: Props) {
   const uid = useId().replace(/:/g, "");
   const ga = `payle-ill-a-${uid}`;
   const gb = `payle-ill-b-${uid}`;
-  const box = compact ? "h-[5.5rem] w-full" : "aspect-[5/4] w-full max-h-[min(52vw,320px)] sm:max-h-[340px] lg:max-h-none";
+  const box = compact
+    ? "h-[5.5rem] w-full"
+    : tightMobileHero
+      ? "aspect-[4/3] w-full max-h-[min(42vw,200px)] sm:aspect-[5/4] sm:max-h-[340px] lg:max-h-none"
+      : "aspect-[5/4] w-full max-h-[min(52vw,320px)] sm:max-h-[340px] lg:max-h-none";
 
   return (
     <div className={`relative overflow-hidden rounded-2xl ${box} ${className}`} aria-hidden>
