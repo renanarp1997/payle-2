@@ -171,7 +171,7 @@ export function PayleLandingHero() {
           variants={container}
           initial="hidden"
           animate="show"
-          className="order-2 text-center lg:col-span-5 lg:order-1 lg:text-left xl:col-span-5"
+          className="order-1 text-center lg:col-span-5 lg:order-1 lg:text-left xl:col-span-5"
         >
           <motion.div
             variants={fadeUp}
@@ -236,7 +236,7 @@ export function PayleLandingHero() {
         </motion.div>
 
         {/* Coluna visual: foto integrada + cartões à esquerda */}
-        <div className="relative order-1 lg:col-span-7 xl:col-span-7">
+        <div className="relative order-2 lg:col-span-7 lg:order-2 xl:col-span-7">
           <div className="relative mx-auto flex max-w-[420px] justify-center sm:max-w-[460px] lg:mx-0 lg:max-w-none lg:justify-end lg:pr-2">
             <div
               className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[min(360px,82vw)] w-[min(360px,92vw)] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.12),transparent_74%)] sm:h-[420px] sm:w-[420px] lg:h-[min(560px,54vw)] lg:w-[min(540px,50vw)] lg:translate-x-[-38%]"
