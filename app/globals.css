@@ -5,7 +5,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: #f8fafc;
+  background-color: #f8fafc;
   color: #0f172a;
 }
 
@@ -77,4 +77,38 @@ button {
   .code-shimmer-light::before {
     animation: none;
   }
+}
+
+/* Camadas decorativas leves (SectionAmbient + shell) — só CSS, sem assets */
+.payle-ambient-dots {
+  background-image: radial-gradient(rgba(100, 116, 139, 0.085) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+@media (min-width: 768px) {
+  .payle-ambient-dots {
+    background-size: 28px 28px;
+  }
+}
+
+.payle-ambient-diagonal {
+  background-image: repeating-linear-gradient(
+    -17deg,
+    transparent,
+    transparent 34px,
+    rgba(59, 130, 246, 0.02) 34px,
+    rgba(59, 130, 246, 0.02) 35px
+  );
+}
+
+.payle-shell-diagonal {
+  background-image: repeating-linear-gradient(
+    -12deg,
+    transparent,
+    transparent 48px,
+    rgba(59, 130, 246, 0.016) 48px,
+    rgba(59, 130, 246, 0.016) 49px,
+    transparent 49px,
+    transparent 96px
+  );
 }

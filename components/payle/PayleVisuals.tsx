@@ -47,6 +47,7 @@ export function SectionAmbient({
   className?: string;
 }) {
   const id = useId().replace(/:/g, "");
+  const reduce = useReducedMotion();
   const palettes: Record<string, string> = {
     hero: "from-blue-500/20 via-sky-400/10 to-emerald-400/15",
     product: "from-blue-600/15 via-transparent to-emerald-500/10",
@@ -54,6 +55,9 @@ export function SectionAmbient({
     contact: "from-blue-500/18 via-white to-emerald-400/12",
     default: "from-blue-500/10 via-transparent to-emerald-400/8"
   };
+  const p = palettes[variant];
+  const orbLoop = reduce ? undefined : { x: [0, 24, 0], y: [0, -18, 0] };
+  const orbLoop2 = reduce ? undefined : { x: [0, -20, 0], y: [0, 14, 0] };
 
   return (
     <motion.div
@@ -61,27 +65,88 @@ export function SectionAmbient({
       aria-hidden
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1.2 }}
+      transition={{ duration: reduce ? 0.01 : 1 }}
     >
+      {/* Mesh multi-camada — leve, sem animação */}
+      <div
+        className="absolute inset-0 opacity-95"
+        style={{
+          backgroundImage: [
+            `radial-gradient(at 10% 15%, rgba(59,130,246,0.14) 0px, transparent 45%)`,
+            `radial-gradient(at 92% 18%, rgba(34,197,94,0.09) 0px, transparent 42%)`,
+            `radial-gradient(at 48% 92%, rgba(59,130,246,0.1) 0px, transparent 48%)`,
+            `radial-gradient(circle at 30% 22%, rgba(34,197,94,0.07) 0px, transparent 40%)`
+          ].join(", ")
+        }}
+      />
+
+      {/* Grade fina + diagonal suave (textura estilo SaaS) */}
+      <div className="payle-ambient-dots absolute inset-0 opacity-[0.55]" />
+      <div className="payle-ambient-diagonal absolute inset-0 opacity-[0.35] md:opacity-[0.45]" />
+
+      {/* Mobile: orbes estáticos (scroll fluido) */}
+      <div
+        className={`absolute -left-[20%] top-[4%] h-[min(78vw,340px)] w-[min(78vw,340px)] rounded-full bg-gradient-to-br ${p} blur-3xl opacity-[0.82] md:hidden`}
+      />
+      <div
+        className={`absolute -right-[14%] bottom-[6%] h-[min(70vw,300px)] w-[min(70vw,300px)] rounded-full bg-gradient-to-tl ${p} blur-3xl opacity-[0.78] md:hidden`}
+      />
+
+      {/* Desktop: orbes com movimento suave */}
       <motion.div
-        className={`absolute -left-[20%] top-[5%] h-[420px] w-[420px] rounded-full bg-gradient-to-br ${palettes[variant]} blur-3xl`}
-        animate={{ x: [0, 24, 0], y: [0, -18, 0] }}
+        className={`absolute -left-[20%] top-[5%] hidden h-[420px] w-[420px] rounded-full bg-gradient-to-br ${p} blur-3xl md:block`}
+        animate={orbLoop}
         transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className={`absolute -right-[15%] bottom-[10%] h-[360px] w-[360px] rounded-full bg-gradient-to-tl ${palettes[variant]} blur-3xl`}
-        animate={{ x: [0, -20, 0], y: [0, 14, 0] }}
+        className={`absolute -right-[15%] bottom-[10%] hidden h-[360px] w-[360px] rounded-full bg-gradient-to-tl ${p} blur-3xl md:block`}
+        animate={orbLoop2}
         transition={{ duration: 16, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
       />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(34,197,94,0.06),transparent_45%)]" />
-      <svg className="absolute inset-0 h-full w-full opacity-[0.35]" aria-hidden>
+      <motion.div
+        className={`absolute left-[28%] top-[42%] hidden h-[220px] w-[220px] rounded-full bg-gradient-to-tr ${p} blur-3xl opacity-70 lg:block`}
+        animate={
+          reduce
+            ? undefined
+            : {
+                scale: [1, 1.06, 1],
+                opacity: [0.55, 0.72, 0.55]
+              }
+        }
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+      />
+
+      {/* Ilustração geométrica SVG */}
+      <svg className="absolute inset-0 h-full w-full text-blue-500/[0.14]" aria-hidden>
         <defs>
           <linearGradient id={`${id}-line`} x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#3b82f6" stopOpacity="0" />
-            <stop offset="50%" stopColor="#3b82f6" stopOpacity="0.35" />
+            <stop offset="50%" stopColor="#3b82f6" stopOpacity="0.38" />
             <stop offset="100%" stopColor="#22c55e" stopOpacity="0" />
           </linearGradient>
+          <linearGradient id={`${id}-ring`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="#22c55e" stopOpacity="0.12" />
+          </linearGradient>
         </defs>
+        <circle
+          cx="92%"
+          cy="14%"
+          r="120"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1"
+          strokeDasharray="6 10"
+          className="opacity-80"
+        />
+        <circle cx="8%" cy="72%" r="90" fill="none" stroke={`url(#${id}-ring)`} strokeWidth="1.5" className="opacity-90" />
+        <path
+          d="M 0 140 Q 320 90 640 150 T 1280 110"
+          fill="none"
+          stroke={`url(#${id}-line)`}
+          strokeWidth="1"
+          className="hidden sm:block"
+        />
         <path
           d="M0 120 Q 400 80 800 140 T 1600 100"
           fill="none"
@@ -94,9 +159,14 @@ export function SectionAmbient({
           fill="none"
           stroke={`url(#${id}-line)`}
           strokeWidth="0.75"
-          strokeOpacity="0.5"
+          strokeOpacity="0.55"
           className="hidden lg:block"
         />
+        <g className="opacity-60">
+          <path d="M 88% 62 L 90% 62 M 89% 61 L 89% 63" stroke="currentColor" strokeWidth="0.75" />
+          <path d="M 12% 28 L 14% 28 M 13% 27 L 13% 29" stroke="#22c55e" strokeWidth="0.75" />
+          <path d="M 76% 82 L 78% 82 M 77% 81 L 77% 83" stroke="currentColor" strokeWidth="0.75" />
+        </g>
       </svg>
     </motion.div>
   );

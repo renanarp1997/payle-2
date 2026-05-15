@@ -112,15 +112,16 @@ const brancoAzul: PayleTheme = {
   id: "branco-azul",
   homePath: "/",
   heroPalette: "white-blue",
-  shell: "min-h-screen bg-[#f8fafc] text-slate-900 antialiased",
+  shell:
+    "relative isolate min-h-screen bg-slate-50 text-slate-900 antialiased [background-image:radial-gradient(rgba(148,163,184,0.065)_1px,transparent_1px)] [background-size:32px_32px]",
   fixedRadial:
-    "pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_120%_80%_at_50%_-12%,rgba(59,130,246,0.14),transparent_55%),radial-gradient(ellipse_60%_50%_at_100%_0%,rgba(34,197,94,0.08),transparent_50%)] motion-safe:animate-payle-pulse-glow",
+    "pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_120%_80%_at_50%_-12%,rgba(59,130,246,0.14),transparent_55%),radial-gradient(ellipse_60%_50%_at_100%_0%,rgba(34,197,94,0.08),transparent_50%)] motion-safe:animate-payle-pulse-glow max-md:motion-safe:animate-none max-md:opacity-[0.92]",
   fixedGrid:
-    "pointer-events-none fixed inset-0 bg-[length:72px_72px] bg-[position:0_0] bg-[linear-gradient(rgba(59,130,246,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.04)_1px,transparent_1px)] opacity-40 motion-safe:animate-payle-grid-drift",
+    "pointer-events-none fixed inset-0 z-0 bg-[length:72px_72px] bg-[position:0_0] bg-[linear-gradient(rgba(59,130,246,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.035)_1px,transparent_1px)] opacity-35 motion-safe:animate-payle-grid-drift max-md:opacity-[0.18] max-md:motion-safe:animate-none",
   headerIdle:
-    "border-white/60 bg-white/55 shadow-[0_1px_0_0_rgba(255,255,255,0.8)_inset] backdrop-blur-2xl backdrop-saturate-150",
+    "border-white/60 bg-white/70 shadow-[0_1px_0_0_rgba(255,255,255,0.8)_inset] backdrop-blur-xl backdrop-saturate-150 max-md:bg-white/85 max-md:backdrop-blur-md",
   headerScrolled:
-    "border-slate-200/70 bg-white/80 shadow-[0_20px_50px_-24px_rgba(15,23,42,0.12),0_1px_0_0_rgba(255,255,255,0.9)_inset] backdrop-blur-2xl backdrop-saturate-150",
+    "border-slate-200/70 bg-white/85 shadow-[0_20px_50px_-24px_rgba(15,23,42,0.12),0_1px_0_0_rgba(255,255,255,0.9)_inset] backdrop-blur-xl backdrop-saturate-150 max-md:bg-white/92 max-md:backdrop-blur-md",
   logoMark:
     "flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-blue-800 text-white shadow-[0_0_20px_rgba(37,99,235,0.35)]",
   logoWord: "text-lg text-slate-900",
@@ -131,11 +132,12 @@ const brancoAzul: PayleTheme = {
   navGhost:
     "rounded-lg px-3 py-2 text-[13px] font-medium text-slate-600 transition-all duration-200 hover:bg-slate-900/[0.04] hover:text-slate-900",
   navPrimary:
-    "rounded-full bg-gradient-to-r from-blue-600 via-blue-600 to-blue-700 px-5 py-2.5 text-[13px] font-semibold text-white shadow-[0_4px_20px_-4px_rgba(37,99,235,0.55),0_0_0_1px_rgba(255,255,255,0.12)_inset] transition-all duration-300 hover:from-blue-500 hover:via-blue-600 hover:to-blue-700 hover:shadow-[0_8px_32px_-6px_rgba(37,99,235,0.55),0_0_24px_-4px_rgba(34,197,94,0.35)]",
+    "rounded-full bg-gradient-to-r from-blue-600 via-blue-600 to-blue-700 px-2.5 py-1.5 text-[11px] font-semibold leading-tight text-white shadow-[0_3px_14px_-3px_rgba(37,99,235,0.48),0_0_0_1px_rgba(255,255,255,0.1)_inset] transition-[transform,box-shadow,background-image] duration-200 ease-out hover:from-blue-500 hover:via-blue-600 hover:to-blue-700 hover:shadow-[0_6px_22px_-5px_rgba(37,99,235,0.48)] active:scale-[0.97] min-[380px]:px-3 min-[380px]:py-2 min-[380px]:text-xs md:px-5 md:py-2.5 md:text-[13px] md:shadow-[0_4px_20px_-4px_rgba(37,99,235,0.55),0_0_0_1px_rgba(255,255,255,0.12)_inset] md:hover:shadow-[0_8px_32px_-6px_rgba(37,99,235,0.55),0_0_24px_-4px_rgba(34,197,94,0.35)]",
   navPrimaryHoverShadow: "0 0 28px rgba(59,130,246,0.45)",
   mobileBtnBorder: "border-slate-200",
   mobileBurger: "bg-slate-700",
-  mobilePanel: "overflow-hidden border-t border-slate-200 bg-white shadow-inner md:hidden",
+  mobilePanel:
+    "overflow-hidden border-t border-slate-200/90 bg-white/97 shadow-inner backdrop-blur-md md:hidden",
   mobileLink:
     "rounded-lg px-3 py-2.5 text-sm font-medium text-slate-800 transition-colors hover:bg-slate-50",
   mobileCta:
@@ -229,7 +231,8 @@ const brancoAzul: PayleTheme = {
   submit:
     "inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full bg-blue-600 px-8 py-3 text-sm font-semibold text-white shadow-md shadow-blue-600/25 transition-all hover:bg-blue-500 hover:shadow-lg",
   disclaimer: "mt-5 text-xs leading-relaxed text-slate-500",
-  footer: "border-t border-slate-200/80 bg-white",
+  footer:
+    "overflow-hidden border-t border-slate-200/80 bg-gradient-to-b from-slate-50/95 via-white to-emerald-50/[0.12]",
   footerLogo: "flex h-9 w-9 items-center justify-center rounded-md bg-blue-600 text-white",
   footerBrand: "font-semibold text-slate-900",
   footerAccent: "text-blue-600",

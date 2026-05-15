@@ -1,5 +1,5 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Outfit, JetBrains_Mono } from "next/font/google";
 import { ReactNode } from "react";
 
@@ -14,6 +14,12 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   display: "swap"
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover"
+};
 
 export const metadata: Metadata = {
   title: {
@@ -40,8 +46,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${outfit.variable} ${jetbrainsMono.variable}`}>
-      <body className="font-sans antialiased">{children}</body>
+    <html lang="pt-BR" className={`h-full ${outfit.variable} ${jetbrainsMono.variable}`}>
+      <body className="min-h-full overflow-x-hidden font-sans antialiased">{children}</body>
     </html>
   );
 }

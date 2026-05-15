@@ -26,11 +26,22 @@ export function PayleSiteChrome({ children }: { children: ReactNode }) {
   return (
     <div className={t.shell}>
       <div className={t.fixedRadial} aria-hidden />
-      <motion.div
-        className={t.fixedGrid}
+      <div className={t.fixedGrid} aria-hidden />
+      <div
+        className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_85%_55%_at_50%_120%,rgba(59,130,246,0.07),transparent_58%),radial-gradient(ellipse_50%_40%_at_90%_15%,rgba(34,197,94,0.05),transparent_60%)] max-md:opacity-90"
         aria-hidden
-        animate={reduce ? undefined : { opacity: [0.35, 0.5, 0.35] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <div
+        className="pointer-events-none fixed bottom-0 left-6 top-[4.25rem] z-0 hidden w-px bg-gradient-to-b from-transparent via-blue-500/12 to-transparent md:block lg:left-10"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none fixed bottom-0 right-6 top-[4.25rem] z-0 hidden w-px bg-gradient-to-b from-transparent via-emerald-500/10 to-transparent md:block lg:right-10"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none fixed inset-0 z-0 payle-shell-diagonal opacity-[0.42] max-md:opacity-[0.26]"
+        aria-hidden
       />
 
       <motion.header
@@ -48,28 +59,31 @@ export function PayleSiteChrome({ children }: { children: ReactNode }) {
               }
         }
       >
-        <div className="mx-auto flex h-[4.25rem] max-w-7xl items-center gap-4 px-4 sm:px-6 lg:gap-6">
+        <div className="mx-auto flex h-[3.5rem] w-full min-w-0 max-w-7xl items-center gap-2 ps-[max(8px,env(safe-area-inset-left))] pe-[max(2px,env(safe-area-inset-right))] sm:h-[4.25rem] sm:gap-4 sm:px-6 lg:gap-6 lg:px-8">
           <motion.a
             href={t.homePath}
-            className={`group flex shrink-0 items-center gap-2.5 font-semibold tracking-tight ${t.logoWord}`}
+            className={`group flex min-w-0 shrink-0 items-center gap-2 font-semibold tracking-tight sm:gap-2.5 ${t.logoWord}`}
             whileHover={reduce ? undefined : { scale: 1.02 }}
             whileTap={reduce ? undefined : { scale: 0.98 }}
           >
             <motion.span
-              className={`relative flex h-9 w-9 items-center justify-center rounded-xl ${t.logoMark}`}
+              className={`relative flex h-8 w-8 shrink-0 items-center justify-center rounded-xl sm:h-9 sm:w-9 ${t.logoMark}`}
               whileHover={reduce ? undefined : { rotate: [0, -4, 4, 0] }}
               transition={{ duration: 0.4 }}
             >
-              <IconPayleMark className="h-5 w-5" />
+              <IconPayleMark className="h-[1.05rem] w-[1.05rem] sm:h-5 sm:w-5" />
               <span
-                className="pointer-events-none absolute inset-0 rounded-xl bg-emerald-400/20 opacity-0 blur-md transition-opacity group-hover:opacity-100"
+                className="pointer-events-none absolute inset-0 rounded-xl bg-emerald-400/20 opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100"
                 aria-hidden
               />
             </motion.span>
-            <span className="text-lg">
+            <span className="truncate text-base sm:text-lg">
               pay<span className={t.logoAccent}>le</span>
             </span>
           </motion.a>
+
+          {/* Mobile: ocupa o meio e empurra CTA + menu para o canto direito (mais previsível que justify-between com 2 filhos) */}
+          <div className="min-w-0 flex-1 md:hidden" aria-hidden />
 
           <nav
             className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 md:flex"
@@ -106,63 +120,62 @@ export function PayleSiteChrome({ children }: { children: ReactNode }) {
             ))}
           </nav>
 
-          <motion.div
-            className="flex shrink-0 items-center gap-2 sm:gap-3"
-            initial={false}
-            animate={reduce ? undefined : { opacity: scrolled ? 1 : 0.95 }}
-          >
+          <div className="flex shrink-0 items-center justify-end gap-1 sm:gap-3">
             <motion.a
               href="/#contato"
               className={`hidden items-center gap-1 sm:inline-flex ${t.navGhost}`}
               whileHover={reduce ? undefined : { x: 2 }}
+              whileTap={reduce ? undefined : { scale: 0.98 }}
+              transition={{ duration: 0.2 }}
             >
               Falar com o comercial
               <IconArrowRight className="h-3.5 w-3.5 opacity-60" />
             </motion.a>
             <motion.a
               href="/#contato"
-              className={`relative inline-flex items-center gap-1.5 overflow-hidden ${t.navPrimary}`}
-              whileHover={reduce ? undefined : { scale: 1.03, y: -1 }}
-              whileTap={reduce ? undefined : { scale: 0.97 }}
+              className={`relative inline-flex items-center gap-1 overflow-hidden md:gap-1.5 ${t.navPrimary}`}
+              whileHover={reduce ? undefined : { scale: 1.02, y: -1 }}
+              whileTap={reduce ? undefined : { scale: 0.96 }}
+              transition={{ type: "spring", stiffness: 520, damping: 28 }}
             >
               {!reduce && (
                 <motion.span
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent"
+                  className="pointer-events-none absolute inset-0 hidden bg-gradient-to-r from-transparent via-white/25 to-transparent md:block"
                   animate={{ x: ["-120%", "120%"] }}
                   transition={{ duration: 2.8, repeat: Infinity, repeatDelay: 3.5, ease: "easeInOut" }}
                   aria-hidden
                 />
               )}
-              <span className="relative">Abrir conta</span>
-              <IconArrowRight className="relative h-3.5 w-3.5 opacity-90" />
+              <span className="relative whitespace-nowrap">Abrir conta</span>
+              <IconArrowRight className="relative h-3 w-3 shrink-0 opacity-90 md:h-3.5 md:w-3.5" />
             </motion.a>
 
             <button
               type="button"
-              className={`inline-flex h-10 w-10 items-center justify-center rounded-xl border bg-white/80 backdrop-blur-sm transition-colors md:hidden ${t.mobileBtnBorder}`}
+              className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border bg-white/90 backdrop-blur-sm transition-[transform,background-color,box-shadow,border-color] duration-200 ease-out hover:border-slate-300 hover:bg-white active:scale-[0.94] md:hidden ${t.mobileBtnBorder}`}
               aria-expanded={open}
               aria-label={open ? "Fechar menu" : "Abrir menu"}
               onClick={() => setOpen((v) => !v)}
             >
               <span className="flex flex-col gap-1.5">
                 <motion.span
-                  className={`block h-0.5 w-5 ${t.mobileBurger}`}
-                  animate={open ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+                  className={`block h-0.5 w-[1.15rem] rounded-full ${t.mobileBurger}`}
+                  animate={open ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
                   transition={spring}
                 />
                 <motion.span
-                  className={`block h-0.5 w-5 ${t.mobileBurger}`}
+                  className={`block h-0.5 w-[1.15rem] rounded-full ${t.mobileBurger}`}
                   animate={open ? { opacity: 0, x: -6 } : { opacity: 1, x: 0 }}
                   transition={{ duration: 0.15 }}
                 />
                 <motion.span
-                  className={`block h-0.5 w-5 ${t.mobileBurger}`}
-                  animate={open ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+                  className={`block h-0.5 w-[1.15rem] rounded-full ${t.mobileBurger}`}
+                  animate={open ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
                   transition={spring}
                 />
               </span>
             </button>
-          </motion.div>
+          </div>
         </div>
 
         <AnimatePresence initial={false}>
@@ -173,9 +186,9 @@ export function PayleSiteChrome({ children }: { children: ReactNode }) {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: reduce ? 0.01 : 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className={`${t.mobilePanel} backdrop-blur-xl`}
+              className={`${t.mobilePanel}`}
             >
-              <nav className="flex flex-col gap-1 px-4 py-4">
+              <nav className="flex flex-col gap-1 px-[max(12px,env(safe-area-inset-left))] pb-3 pe-[max(12px,env(safe-area-inset-right))] pt-3">
                 {payleNav.map((item, i) => (
                   <motion.a
                     key={item.id}
@@ -199,13 +212,13 @@ export function PayleSiteChrome({ children }: { children: ReactNode }) {
                 ))}
                 <motion.a
                   href="/#contato"
-                  className={`mt-2 block text-center ${t.mobileCta}`}
+                  className="mt-2 rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-center text-sm font-semibold text-slate-800 shadow-sm transition-colors duration-200 hover:border-blue-200 hover:bg-slate-50 hover:text-blue-700 active:scale-[0.99]"
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
+                  transition={{ delay: 0.18 }}
                   onClick={() => setOpen(false)}
                 >
-                  Abrir conta
+                  Falar com o comercial
                 </motion.a>
               </nav>
             </motion.div>
@@ -213,9 +226,21 @@ export function PayleSiteChrome({ children }: { children: ReactNode }) {
         </AnimatePresence>
       </motion.header>
 
-      <main>{children}</main>
+      <main className="relative z-[1]">{children}</main>
 
-      <footer className={t.footer}>
+      <footer className={`relative z-[1] ${t.footer}`}>
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_72%_42%_at_50%_-30%,rgba(59,130,246,0.07),transparent),radial-gradient(ellipse_46%_38%_at_96%_92%,rgba(34,197,94,0.05),transparent)]"
+          aria-hidden
+        />
+        <div
+          className="payle-ambient-dots pointer-events-none absolute inset-0 opacity-[0.22] md:opacity-[0.28]"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/35 to-transparent"
+          aria-hidden
+        />
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
