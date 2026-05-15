@@ -1,21 +1,45 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { ComponentType, SVGProps } from "react";
 import { payleTheme } from "./payleTheme";
 import { PayleSiteChrome } from "./PayleSiteChrome";
 import {
+  PaylePageLinks,
+  PaylePageSection,
+  PayleSubpageHero,
+  SectionHeader,
+  usePayleMotion
+} from "./PayleVisuals";
+import {
   IconActivity,
-  IconArrowRight,
   IconBolt,
   IconLayers,
   IconPanel,
   IconPlug,
-  IconSpark,
-  IconTerminal
+  IconSpark
 } from "./PayleIcons";
+import { PayleEditorialGallery, type EditorialPhotoItem } from "./PayleEditorialPhotos";
 
 type SvgIcon = ComponentType<SVGProps<SVGSVGElement>>;
+
+const recursosGalleryPhotos: EditorialPhotoItem[] = [
+  {
+    src: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=720&q=80",
+    alt: "Equipe celebrando em escritório — imagem ilustrativa",
+    caption: "Colaboração entre áreas"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=720&q=80",
+    alt: "Profissional focado em notebook em coworking — imagem ilustrativa",
+    caption: "Operação orientada a resultado"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?auto=format&fit=crop&w=720&q=80",
+    alt: "Sala de reunião com apresentação em tela — imagem ilustrativa",
+    caption: "Governança & visibilidade"
+  }
+];
 
 const features: { title: string; body: string; Icon: SvgIcon }[] = [
   {
@@ -25,7 +49,7 @@ const features: { title: string; body: string; Icon: SvgIcon }[] = [
   },
   {
     title: "Adquirentes nativos",
-    body: "Integração nativa com Asaas, Mercado Pago, PagSeguro, Efi, Stone, Cielo, Pagar.me, Appmax e Dom Pagamentos — sem gambiarra.",
+    body: "Integração nativa com Asaas, Mercado Pago, PagSeguro, Efi, Stone, Cielo, Pagar.me, Appmax e Dom Pagamentos — homologadas no produto.",
     Icon: IconBolt
   },
   {
@@ -52,147 +76,71 @@ const features: { title: string; body: string; Icon: SvgIcon }[] = [
 
 export function PayleRecursosPage() {
   const t = payleTheme;
-  const reduce = useReducedMotion();
-
-  const ease = reduce ? { duration: 0.01 } : { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const };
-  const stagger = reduce ? 0 : 0.07;
-  const viewport = { once: true, margin: "-60px" as const };
+  const { reduce, viewport, stagger, fadeUp } = usePayleMotion();
 
   const container: Variants = {
     hidden: {},
     show: { transition: { staggerChildren: stagger, delayChildren: reduce ? 0 : 0.05 } }
   };
 
-  const fadeUp: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 22 },
-    show: { opacity: 1, y: 0, transition: ease }
-  };
-
   return (
     <PayleSiteChrome>
-      <section className="border-b border-slate-200/80 bg-white">
-        <div className="mx-auto max-w-6xl px-4 pb-14 pt-14 text-center sm:px-6 sm:pb-20 sm:pt-20">
-          <motion.div
-            initial={{ opacity: 0, y: reduce ? 0 : 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={ease}
-            className="inline-flex flex-col items-center"
-          >
-            <h1 className="text-3xl font-bold tracking-tight text-blue-600 sm:text-4xl">Recursos</h1>
-            <span
-              className="mt-3 block h-[3px] w-[calc(100%+1.5rem)] max-w-[12rem] rounded-full bg-blue-600"
-              aria-hidden
-            />
-          </motion.div>
-          <motion.p
-            initial={{ opacity: 0, y: reduce ? 0 : 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...ease, delay: reduce ? 0 : 0.08 }}
-            className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg"
-          >
-            {t.copy.recursosTagline}
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: reduce ? 0 : 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...ease, delay: reduce ? 0 : 0.14 }}
-            className="mt-10 flex flex-wrap items-center justify-center gap-4"
-          >
-            <motion.a
-              href="/#contato"
-              className={t.btnPrimary}
-              whileHover={reduce ? undefined : { scale: 1.04 }}
-              whileTap={reduce ? undefined : { scale: 0.97 }}
-            >
-              Falar com vendas
-              <IconArrowRight className="h-4 w-4" />
-            </motion.a>
-            <motion.a
-              href="/"
-              className={t.btnSecondary}
-              whileHover={reduce ? undefined : { scale: 1.02, borderColor: t.btnSecondaryHoverBorder }}
-              whileTap={reduce ? undefined : { scale: 0.98 }}
-            >
-              Voltar ao início
-            </motion.a>
-          </motion.div>
+      <PayleSubpageHero
+        kicker="Recursos"
+        title="Recursos Payle"
+        accentWord="Payle"
+        variant="product"
+        visualId="recursos"
+        lead={t.copy.recursosTagline}
+      />
+
+      <PaylePageSection className={t.sectionRecursos} variant="default">
+        <SectionHeader
+          kicker="Catálogo"
+          title="O que entra no checkout com a Payle"
+          lead="Do gateway ao pixel: recursos para conciliar operação e marketing mensurável na mesma página de checkout."
+          align="center"
+        />
+
+        <div className="mx-auto mt-14 max-w-6xl">
+          <PayleEditorialGallery photos={recursosGalleryPhotos} columns={3} />
         </div>
-      </section>
 
-      <section className={t.sectionRecursos}>
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewport}
-            transition={ease}
-            className="mx-auto flex max-w-3xl flex-col items-center text-center sm:flex-row sm:items-end sm:justify-between sm:text-left"
-          >
-            <div>
-              <p className={t.productKicker}>Catálogo</p>
-              <h2 className={`mt-2 ${t.sectionTitle}`}>O que entra no checkout com a Payle</h2>
-              <p className={`mt-3 max-w-2xl ${t.bodyMuted}`}>
-                Do gateway ao pixel: recursos pensados para quem precisa vender com clareza operacional e marketing
-                mensurável na mesma página.
-              </p>
-            </div>
-            <IconBolt className={`hidden shrink-0 sm:block ${t.recursosBolt}`} aria-hidden />
-          </motion.div>
-
-          <motion.ul
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={viewport}
-            className="mt-12 grid items-stretch gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
-          >
-            {features.map((f) => (
-              <motion.li
-                key={f.title}
-                variants={fadeUp}
-                whileHover={reduce ? undefined : { y: -6, transition: { type: "spring", stiffness: 400, damping: 22 } }}
-                className={t.featureCard}
-              >
-                <motion.div
-                  className={t.featureGlow}
-                  initial={{ opacity: 0.4, scale: 0.8 }}
-                  whileHover={{ opacity: 0.85, scale: 1.1 }}
-                />
-                <div className={t.featureIconBox}>
-                  <f.Icon className="h-6 w-6" />
-                </div>
-                <h3 className={t.featureTitle}>{f.title}</h3>
-                <p className={t.featureBody}>{f.body}</p>
-              </motion.li>
-            ))}
-          </motion.ul>
-
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewport}
-            transition={{ ...ease, delay: reduce ? 0 : 0.06 }}
-            className="mt-14 flex flex-wrap items-center justify-center gap-6 border-t border-slate-200/80 pt-10"
-          >
-            <motion.a
-              href="/integracoes"
-              className={`inline-flex items-center gap-2 text-sm font-semibold ${t.accent}`}
-              whileHover={reduce ? undefined : { x: 3 }}
+        <motion.ul
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewport}
+          className="mt-16 grid items-stretch gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+        >
+          {features.map((f) => (
+            <motion.li
+              key={f.title}
+              variants={fadeUp}
+              whileHover={reduce ? undefined : { y: -6 }}
+              className={t.featureCard}
             >
-              Ver integrações
-              <IconArrowRight className="h-4 w-4" />
-            </motion.a>
-            <motion.a
-              href="/checkout"
-              className={`inline-flex items-center gap-2 text-sm font-semibold text-slate-600 transition-colors hover:text-blue-700`}
-              whileHover={reduce ? undefined : { x: 3 }}
-            >
-              Página de checkout
-              <IconTerminal className="h-4 w-4 text-blue-600" />
-            </motion.a>
-          </motion.div>
-        </div>
-      </section>
+              <motion.div
+                className={t.featureGlow}
+                animate={reduce ? undefined : { opacity: [0.35, 0.65, 0.35] }}
+                transition={{ duration: 5, repeat: Infinity }}
+              />
+              <motion.div className={t.featureIconBox} whileHover={reduce ? undefined : { scale: 1.05 }}>
+                <f.Icon className="h-6 w-6" />
+              </motion.div>
+              <h3 className={t.featureTitle}>{f.title}</h3>
+              <p className={t.featureBody}>{f.body}</p>
+            </motion.li>
+          ))}
+        </motion.ul>
+
+        <PaylePageLinks
+          links={[
+            { href: "/integracoes", label: "Ver integrações", accent: true },
+            { href: "/checkout", label: "Página de checkout" }
+          ]}
+        />
+      </PaylePageSection>
     </PayleSiteChrome>
   );
 }

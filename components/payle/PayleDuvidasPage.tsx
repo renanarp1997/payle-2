@@ -1,9 +1,30 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { payleTheme } from "./payleTheme";
 import { PayleSiteChrome } from "./PayleSiteChrome";
+import {
+  PaylePageLinks,
+  PaylePageSection,
+  PayleSubpageHero,
+  SectionHeader,
+  usePayleMotion
+} from "./PayleVisuals";
 import { IconArrowRight } from "./PayleIcons";
+import { PayleEditorialGallery, type EditorialPhotoItem } from "./PayleEditorialPhotos";
+
+const duvidasGalleryPhotos: EditorialPhotoItem[] = [
+  {
+    src: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=720&q=80",
+    alt: "Profissional sorrindo em ambiente de escritório — imagem ilustrativa",
+    caption: "Suporte & esclarecimentos"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=720&q=80",
+    alt: "Profissional em ambiente corporativo — imagem ilustrativa",
+    caption: "Confiança na decisão"
+  }
+];
 
 const faqs: { q: string; a: string }[] = [
   {
@@ -12,7 +33,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "Quais processadores já conversam nativamente com a Payle?",
-    a: "Há integração nativa com Asaas, Mercado Pago, PagSeguro, Efi, Stone, Cielo, Pagar.me, Appmax e Dom Pagamentos — sem gambiarra."
+    a: "Há integração nativa com Asaas, Mercado Pago, PagSeguro, Efi, Stone, Cielo, Pagar.me, Appmax e Dom Pagamentos — todas homologadas no produto."
   },
   {
     q: "Onde posso usar o checkout Payle?",
@@ -30,80 +51,40 @@ const faqs: { q: string; a: string }[] = [
 
 export function PayleDuvidasPage() {
   const t = payleTheme;
-  const reduce = useReducedMotion();
-  const ease = reduce ? { duration: 0.01 } : { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const };
-  const viewport = { once: true, margin: "-60px" as const };
+  const { reduce, fadeUp, viewport } = usePayleMotion();
 
   return (
     <PayleSiteChrome>
-      <section className="border-b border-slate-200/80 bg-white">
-        <div className="mx-auto max-w-6xl px-4 pb-14 pt-14 text-center sm:px-6 sm:pb-20 sm:pt-20">
-          <motion.div
-            initial={{ opacity: 0, y: reduce ? 0 : 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={ease}
-            className="inline-flex flex-col items-center"
-          >
-            <h1 className="text-3xl font-bold tracking-tight text-blue-600 sm:text-4xl">Dúvidas</h1>
-            <span
-              className="mt-3 block h-[3px] w-[calc(100%+1.5rem)] max-w-[12rem] rounded-full bg-blue-600"
-              aria-hidden
-            />
-          </motion.div>
-          <motion.p
-            initial={{ opacity: 0, y: reduce ? 0 : 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...ease, delay: reduce ? 0 : 0.08 }}
-            className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg"
-          >
-            As dúvidas que mais aparecem quando alguém já opera checkout e gateway no dia a dia — em linguagem direta,
-            alinhada ao que a Payle entrega hoje.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: reduce ? 0 : 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...ease, delay: reduce ? 0 : 0.14 }}
-            className="mt-10 flex flex-wrap items-center justify-center gap-4"
-          >
-            <motion.a
-              href="/#contato"
-              className={t.btnPrimary}
-              whileHover={reduce ? undefined : { scale: 1.04 }}
-              whileTap={reduce ? undefined : { scale: 0.97 }}
-            >
-              Falar com vendas
-              <IconArrowRight className="h-4 w-4" />
-            </motion.a>
-            <motion.a
-              href="/"
-              className={t.btnSecondary}
-              whileHover={reduce ? undefined : { scale: 1.02, borderColor: t.btnSecondaryHoverBorder }}
-              whileTap={reduce ? undefined : { scale: 0.98 }}
-            >
-              Voltar ao início
-            </motion.a>
-          </motion.div>
-        </div>
-      </section>
+      <PayleSubpageHero
+        kicker="FAQ"
+        title="Dúvidas frequentes"
+        accentWord="frequentes"
+        variant="default"
+        visualId="duvidas"
+        lead="Perguntas frequentes para quem avalia checkout e gateway — respostas objetivas, em linguagem clara e alinhadas ao escopo atual da Payle."
+      />
 
-      <section className={t.sectionFaq}>
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewport}
-            transition={ease}
-            className="mx-auto max-w-2xl text-center"
-          >
-            <p className={t.productKicker}>FAQ</p>
-            <h2 className={`mt-3 ${t.sectionTitle}`}>Dúvidas frequentes</h2>
-            <p className={t.faqLead}>
-              Abra cada item para ver a resposta. Se precisar de algo fora do roteiro, o time comercial ajuda no contato.
-            </p>
-          </motion.div>
-          <div className="mx-auto mt-10 max-w-3xl">
-            {faqs.map((item) => (
-              <details key={item.q} className={t.faqDetails}>
+      <PaylePageSection className={t.sectionFaq} variant="default">
+        <SectionHeader
+          title="Perguntas e respostas"
+          lead="Abra cada item para ver o detalhe. Para cenários específicos, o time comercial orienta no contato."
+          align="center"
+        />
+
+        <div className="mx-auto mt-12 max-w-4xl">
+          <PayleEditorialGallery photos={duvidasGalleryPhotos} columns={2} />
+        </div>
+
+        <motion.div
+          className="mx-auto mt-14 max-w-3xl"
+          variants={{ hidden: {}, show: { transition: { staggerChildren: reduce ? 0 : 0.06 } } }}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewport}
+        >
+          {faqs.map((item) => (
+            <motion.div key={item.q} variants={fadeUp} whileHover={reduce ? undefined : { y: -2 }}>
+              <details className={t.faqDetails}>
                 <summary className={t.faqSummary}>
                   <span>{item.q}</span>
                   <IconArrowRight
@@ -113,35 +94,17 @@ export function PayleDuvidasPage() {
                 </summary>
                 <p className={t.faqAnswer}>{item.a}</p>
               </details>
-            ))}
-          </div>
+            </motion.div>
+          ))}
+        </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewport}
-            transition={{ ...ease, delay: reduce ? 0 : 0.06 }}
-            className="mt-14 flex flex-wrap items-center justify-center gap-6 border-t border-slate-200/80 pt-10"
-          >
-            <motion.a
-              href="/planos"
-              className={`inline-flex items-center gap-2 text-sm font-semibold ${t.accent}`}
-              whileHover={reduce ? undefined : { x: 3 }}
-            >
-              Ver planos
-              <IconArrowRight className="h-4 w-4" />
-            </motion.a>
-            <motion.a
-              href="/integracoes"
-              className={`inline-flex items-center gap-2 text-sm font-semibold text-slate-600 transition-colors hover:text-blue-700`}
-              whileHover={reduce ? undefined : { x: 3 }}
-            >
-              Integrações
-              <IconArrowRight className="h-4 w-4" />
-            </motion.a>
-          </motion.div>
-        </div>
-      </section>
+        <PaylePageLinks
+          links={[
+            { href: "/planos", label: "Ver planos", accent: true },
+            { href: "/integracoes", label: "Integrações" }
+          ]}
+        />
+      </PaylePageSection>
     </PayleSiteChrome>
   );
 }

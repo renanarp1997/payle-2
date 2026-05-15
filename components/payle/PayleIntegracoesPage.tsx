@@ -1,9 +1,34 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { payleTheme } from "./payleTheme";
 import { PayleSiteChrome } from "./PayleSiteChrome";
-import { IconArrowRight, IconBolt, IconPlug } from "./PayleIcons";
+import {
+  PaylePageLinks,
+  PaylePageSection,
+  PayleSubpageHero,
+  SectionHeader,
+  usePayleMotion
+} from "./PayleVisuals";
+import { PayleEditorialGallery, type EditorialPhotoItem } from "./PayleEditorialPhotos";
+
+const integracoesGalleryPhotos: EditorialPhotoItem[] = [
+  {
+    src: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=720&q=80",
+    alt: "Profissionais em mesa de trabalho com notebooks — imagem ilustrativa",
+    caption: "Times integrados"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=720&q=80",
+    alt: "Reunião em escritório moderno — imagem ilustrativa",
+    caption: "Back-office & operações"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=720&q=80",
+    alt: "Desenvolvedor em frente a código em telas — imagem ilustrativa",
+    caption: "Integração técnica nativa"
+  }
+];
 
 const psps = [
   "Asaas",
@@ -21,7 +46,7 @@ const integrationGroups: { title: string; body: string }[] = [
   { title: "E-commerce", body: "Shopify e WooCommerce para sua loja online." },
   {
     title: "Infoproduto standalone",
-    body: "Modo independente para infoprodutores, com entrega automatizada de arquivos: PDF, vídeo e outros formatos após a confirmação do pagamento."
+    body: "Modo independente para infoprodutores, com entrega automatizada de arquivos após a confirmação do pagamento."
   },
   { title: "LMS", body: "Integração com a plataforma Educe." },
   { title: "ERPs", body: "Bling e Tiny para conciliar pedidos, estoque e financeiro com o checkout." }
@@ -29,151 +54,95 @@ const integrationGroups: { title: string; body: string }[] = [
 
 export function PayleIntegracoesPage() {
   const t = payleTheme;
-  const reduce = useReducedMotion();
-
-  const ease = reduce ? { duration: 0.01 } : { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const };
-  const stagger = reduce ? 0 : 0.07;
-  const viewport = { once: true, margin: "-60px" as const };
+  const { reduce, viewport, stagger, fadeUp, ease } = usePayleMotion();
 
   const container: Variants = {
     hidden: {},
     show: { transition: { staggerChildren: stagger, delayChildren: reduce ? 0 : 0.05 } }
   };
 
-  const fadeUp: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 22 },
-    show: { opacity: 1, y: 0, transition: ease }
-  };
-
   return (
     <PayleSiteChrome>
-      <section className="border-b border-slate-200/80 bg-white">
-        <div className="mx-auto max-w-6xl px-4 pb-14 pt-14 text-center sm:px-6 sm:pb-20 sm:pt-20">
-          <motion.div
-            initial={{ opacity: 0, y: reduce ? 0 : 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={ease}
-            className="inline-flex flex-col items-center"
-          >
-            <h1 className="text-3xl font-bold tracking-tight text-blue-600 sm:text-4xl">Integrações</h1>
-            <span
-              className="mt-3 block h-[3px] w-[calc(100%+1.5rem)] max-w-[16rem] rounded-full bg-blue-600"
-              aria-hidden
-            />
-          </motion.div>
-          <motion.p
-            initial={{ opacity: 0, y: reduce ? 0 : 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...ease, delay: reduce ? 0 : 0.08 }}
-            className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg"
-          >
-            Conecte adquirentes, canais de venda e sistemas de gestão sem middleware improvisado — tudo conversando
-            nativamente com a Payle no checkout.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: reduce ? 0 : 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...ease, delay: reduce ? 0 : 0.14 }}
-            className="mt-10 flex flex-wrap items-center justify-center gap-4"
-          >
-            <motion.a
-              href="/#contato"
-              className={t.btnPrimary}
-              whileHover={reduce ? undefined : { scale: 1.04 }}
-              whileTap={reduce ? undefined : { scale: 0.97 }}
-            >
-              Falar com vendas
-              <IconArrowRight className="h-4 w-4" />
-            </motion.a>
-            <motion.a
-              href="/"
-              className={t.btnSecondary}
-              whileHover={reduce ? undefined : { scale: 1.02, borderColor: t.btnSecondaryHoverBorder }}
-              whileTap={reduce ? undefined : { scale: 0.98 }}
-            >
-              Voltar ao início
-            </motion.a>
-          </motion.div>
-        </div>
-      </section>
+      <PayleSubpageHero
+        kicker="Ecossistema"
+        title="Integrações nativas"
+        accentWord="nativas"
+        variant="product"
+        visualId="integracoes"
+        lead="Menos retrabalho em planilhas e integrações manuais: processadores, loja, LMS e ERP já se conectam à Payle — você habilita o que utiliza e mantém o ritmo da operação."
+      />
 
-      <section className={t.sectionIntegrations}>
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewport}
-            transition={ease}
-            className="mx-auto max-w-3xl text-center"
-          >
-            <p className={t.integrationSubhead}>Ecossistema</p>
-            <h2 className={`mt-3 ${t.sectionTitle}`}>Integrações nativas e ecossistema</h2>
-            <p className={`mt-4 ${t.bodyMuted}`}>
-              A lista abaixo reflete o que já conversa nativamente com a Payle hoje: processadores, lojas, LMS, ERPs e
-              modo standalone para infoproduto — sem gambiarra.
-            </p>
-          </motion.div>
+      <PaylePageSection className={t.sectionIntegrations} variant="product">
+        <SectionHeader
+          title="Integrações nativas e ecossistema"
+          lead="Lista atual do que já possui integração nativa com a Payle: processadores, lojas, LMS, ERPs e modo standalone para infoproduto."
+          align="center"
+        />
 
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewport}
-            transition={{ ...ease, delay: reduce ? 0 : 0.04 }}
-            className="mx-auto mt-10 max-w-3xl text-center"
-          >
-            <p className={t.integrationSubhead}>Adquirentes</p>
-            <div className="mt-4 flex flex-wrap justify-center gap-2">
-              {psps.map((name) => (
-                <span key={name} className={t.integrationPill}>
-                  {name}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.ul
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={viewport}
-            className="mt-12 grid items-stretch gap-6 sm:grid-cols-2 sm:gap-8"
-          >
-            {integrationGroups.map((g) => (
-              <motion.li key={g.title} variants={fadeUp} className={t.integrationCard}>
-                <h3 className="text-base font-semibold leading-snug tracking-tight text-slate-900">{g.title}</h3>
-                <p className={`mt-2 flex-1 text-sm leading-relaxed text-slate-600`}>{g.body}</p>
-              </motion.li>
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewport}
+          transition={ease}
+          className="mx-auto mt-12 max-w-3xl text-center"
+        >
+          <p className={t.integrationSubhead}>Adquirentes</p>
+          <motion.div className="mt-4 flex flex-wrap justify-center gap-2">
+            {psps.map((name, i) => (
+              <motion.span
+                key={name}
+                className={t.integrationPill}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: reduce ? 0 : i * 0.03 }}
+                whileHover={reduce ? undefined : { y: -2 }}
+              >
+                {name}
+              </motion.span>
             ))}
-          </motion.ul>
-
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={viewport}
-            transition={{ ...ease, delay: reduce ? 0 : 0.08 }}
-            className="mt-14 flex flex-wrap items-center justify-center gap-6 border-t border-slate-200/80 pt-10"
-          >
-            <motion.a
-              href="/produto"
-              className={`inline-flex items-center gap-2 text-sm font-semibold ${t.accent}`}
-              whileHover={reduce ? undefined : { x: 3 }}
-            >
-              <IconPlug className="h-4 w-4" />
-              Página do produto
-              <IconArrowRight className="h-4 w-4" />
-            </motion.a>
-            <motion.a
-              href="/recursos"
-              className={`inline-flex items-center gap-2 text-sm font-semibold text-slate-600 transition-colors hover:text-blue-700`}
-              whileHover={reduce ? undefined : { x: 3 }}
-            >
-              <IconBolt className="h-4 w-4 text-blue-600" />
-              Página de recursos
-              <IconArrowRight className="h-4 w-4" />
-            </motion.a>
           </motion.div>
+        </motion.div>
+
+        <div className="mx-auto mt-16 max-w-6xl">
+          <SectionHeader
+            kicker="Ambientes"
+            title="Onde as integrações fazem diferença no dia a dia"
+            lead="Da área técnica ao comercial: ecossistemas que conversam com o checkout sem retrabalho manual — imagens ilustrativas."
+            align="center"
+          />
+          <div className="mt-10">
+            <PayleEditorialGallery photos={integracoesGalleryPhotos} columns={3} />
+          </div>
         </div>
-      </section>
+
+        <motion.ul
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewport}
+          className="mt-16 grid items-stretch gap-5 sm:grid-cols-2 sm:gap-6"
+        >
+          {integrationGroups.map((g) => (
+            <motion.li
+              key={g.title}
+              variants={fadeUp}
+              whileHover={reduce ? undefined : { y: -4 }}
+              className={t.integrationCard}
+            >
+              <h3 className="text-base font-semibold leading-snug tracking-tight text-slate-900">{g.title}</h3>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{g.body}</p>
+            </motion.li>
+          ))}
+        </motion.ul>
+
+        <PaylePageLinks
+          links={[
+            { href: "/produto", label: "Página do produto", accent: true },
+            { href: "/recursos", label: "Página de recursos" }
+          ]}
+        />
+      </PaylePageSection>
     </PayleSiteChrome>
   );
 }
