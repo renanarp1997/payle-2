@@ -59,7 +59,7 @@ export function PaylePlanPricingCard({
     >
       {highlight && (
         <motion.div
-          className="pointer-events-none absolute inset-0 opacity-[0.22]"
+          className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-[0.22]"
           animate={reduce ? undefined : { backgroundPosition: ["0% 0%", "100% 100%"] }}
           transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
           style={{ backgroundImage: t.planHiShimmer, backgroundSize: "200% 200%" }}
@@ -67,19 +67,16 @@ export function PaylePlanPricingCard({
         />
       )}
 
-      {badgeText && (
-        <div className="absolute right-6 top-5 z-[1]">
-          <span className="rounded-full border border-blue-200/95 bg-white/95 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-blue-800 shadow-[0_1px_6px_-2px_rgba(37,99,235,0.25)]">
-            {badgeText}
-          </span>
-        </div>
-      )}
-
       <div className="relative flex flex-col">
         <div className="flex items-start justify-between gap-3">
           <motion.div className={t.planIconBox} whileHover={reduce ? undefined : { rotate: 4 }}>
             <Icon className="h-5 w-5" />
           </motion.div>
+          {badgeText ? (
+            <span className="shrink-0 rounded-full border border-blue-200/95 bg-white/95 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-blue-800 shadow-[0_1px_6px_-2px_rgba(37,99,235,0.25)]">
+              {badgeText}
+            </span>
+          ) : null}
         </div>
 
         <h3 className="mt-3 text-xl font-semibold tracking-[-0.03em] text-slate-900 sm:text-[1.375rem]">{name}</h3>

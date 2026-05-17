@@ -214,6 +214,7 @@ export function PaylePlanosPage() {
         <PaylePageSection
           className="border-y border-slate-200/60 bg-gradient-to-b from-slate-50/90 to-white py-12 sm:py-32"
           variant="default"
+          innerClassName="relative z-[1]"
         >
           <SectionHeader
             kicker="Investimento"
@@ -227,7 +228,7 @@ export function PaylePlanosPage() {
             initial="hidden"
             whileInView="show"
             viewport={viewport}
-            className="mt-8 flex gap-6 overflow-x-auto scroll-smooth pb-2 pl-[max(0px,calc(env(safe-area-inset-left)))] [-ms-overflow-style:none] [scrollbar-width:thin] snap-x snap-mandatory sm:mt-14 md:grid md:gap-8 md:overflow-visible md:pb-0 md:pl-0 lg:grid-cols-3 [&::-webkit-scrollbar]:h-[6px] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-400/55"
+            className="mt-8 flex gap-6 overflow-x-auto scroll-smooth pb-4 pl-[max(0px,calc(env(safe-area-inset-left)))] pt-2 [-ms-overflow-style:none] [scrollbar-width:thin] snap-x snap-mandatory sm:mt-14 md:grid md:gap-8 md:overflow-visible md:pb-0 md:pl-0 md:pt-0 lg:grid-cols-3 [&::-webkit-scrollbar]:h-[6px] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-400/55"
           >
             {planTiers.map((plan) => (
               <div

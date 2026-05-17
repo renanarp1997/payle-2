@@ -58,7 +58,7 @@ const config: Config = {
         "payle-grid-drift": "payle-grid-drift 22s linear infinite",
         "payle-float": "payle-float 6s ease-in-out infinite",
         "payle-shimmer": "payle-shimmer 8s linear infinite",
-        "payle-marquee": "payle-marquee 48s linear infinite"
+        "payle-marquee": "payle-marquee 56s linear infinite"
       },
       boxShadow: {
         "payle-glow": "0 0 40px -8px rgba(59,130,246,0.35), 0 0 24px -12px rgba(34,197,94,0.2)",
